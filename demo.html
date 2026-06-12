@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="images/profile.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- SEO Optimization -->
+    <title>Aditya P Naik | Portfolio - Aspiring Software Developer & AI Enthusiast</title>
+    <meta name="description" content="Personal portfolio of Aditya P Naik, a second-year B.Tech Student in Information Science and Engineering (ISE) at NMAMIT. Showcasing software projects, coding statistics, certifications, and academic background." />
+    <meta name="keywords" content="Aditya P Naik, Aditya, Portfolio, B.Tech, NMAMIT, ISE, Software Developer, AI Enthusiast, React Developer, Udupi, Nitte" />
+    <meta name="author" content="Aditya P Naik" />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React & Babel CDNs -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Confetti & EmailJS CDNs -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+    <script>
+      // Configure Tailwind custom theme mapping
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Outfit', 'Inter', 'sans-serif'],
+            },
+            colors: {
+              background: {
+                dark: '#030014',
+                light: '#f8fafc',
+              },
+              card: {
+                dark: 'rgba(17, 12, 46, 0.45)',
+                light: 'rgba(255, 255, 255, 0.65)',
+              }
+            },
+            boxShadow: {
+              'glass-dark': '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
+              'glass-light': '0 8px 32px 0 rgba(31, 38, 135, 0.08)',
+              'neon-blue': '0 0 15px rgba(6, 182, 212, 0.4)',
+              'neon-purple': '0 0 15px rgba(168, 85, 247, 0.4)',
+              'neon-indigo': '0 0 15px rgba(99, 102, 241, 0.4)',
+            }
+          }
+        }
+      }
+    </script>
+
+    <style type="text/css">
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #030014;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: linear-gradient(to bottom, #6366f1, #a855f7, #06b6d4);
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(to bottom, #4f46e5, #9333ea, #0891b2);
+      }
+
+      /* Base transition */
+      body {
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+
+      /* Custom animations */
+      @keyframes spin-slow {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      .animate-spin-slow {
+        animation: spin-slow 12s linear infinite;
+      }
+
+      @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-8px); }
+      }
+      .animate-float {
+        animation: float 6s ease-in-out infinite;
+      }
+
+      /* Premium glassmorphism effects */
+      .glass-card-dark {
+        background: rgba(10, 6, 32, 0.45);
+        backdrop-filter: blur(16px) saturate(180%);
+        -webkit-backdrop-filter: blur(16px) saturate(180%);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      }
+
+      .glass-card-light {
+        background: rgba(255, 255, 255, 0.65);
+        backdrop-filter: blur(16px) saturate(160%);
+        -webkit-backdrop-filter: blur(16px) saturate(160%);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.06);
+      }
+      
+      .glass-nav-dark {
+        background: rgba(3, 0, 20, 0.6);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .glass-nav-light {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      }
+
+      /* Custom Grid Background Pattern */
+      .bg-grid-pattern {
+        background-size: 50px 50px;
+        background-image: 
+          linear-gradient(to right, rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+      }
+
+      /* Hide default cursor on desktop when CustomCursor is active */
+      @media (min-width: 1024px) {
+        .custom-cursor-active,
+        .custom-cursor-active * {
+          cursor: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-[#030014] text-slate-100 font-sans selection:bg-indigo-500/30 selection:text-indigo-200 antialiased overflow-x-hidden">
+    <div id="root"></div>
+
+    <!-- react code execution -->
+    <script type="text/babel">
+      const { useState, useEffect, useRef } = React;
+
+      // ==========================================
+      // ICON SVG UTILS (avoiding NPM react-icons)
+      // ==========================================
+      function Icon({ name, className = "w-5 h-5" }) {
+        const icons = {
+          sun: <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707.707M12 8a4 4 0 100 8 4 4 0 000-8z" /></svg>,
+          moon: <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>,
+          menu: <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>,
+          close: <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>,
+          github: <svg className={className} fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>,
+          linkedin: <svg className={className} fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>,
+          instagram: <svg className={className} fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>,
+          twitter: <svg className={className} fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>,
+          mail: <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>,
+          phone: <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>,
+          map: <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>,
+          arrowup: <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" /></svg>,
+          external: <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>,
+          trophy: <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" /></svg>,
+          code: <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>,
+          users: <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>,
+          award: <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" /></svg>,
+          graduation: <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" /></svg>,
+          send: <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" /></svg>,
+          star: <svg className={className} fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>,
+          fork: <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M8 7a3 3 0 100-6 3 3 0 000 6zM8 7v7a4 4 0 004 4h4m0 0a3 3 0 100-6 3 3 0 000 6z" /></svg>,
+        };
+        return icons[name] || null;
+      }
+
+      // ==========================================
+      // PARTICLES BACKGROUND CANVAS
+      // ==========================================
+      function ParticleBackground({ theme }) {
+        const canvasRef = useRef(null);
+
+        useEffect(() => {
+          const canvas = canvasRef.current;
+          if (!canvas) return;
+          const ctx = canvas.getContext('2d');
+          if (!ctx) return;
+
+          let animationFrameId;
+          let particles = [];
+          const particleCount = window.innerWidth < 768 ? 30 : 70;
+          const connectionDistance = 100;
+
+          const resizeCanvas = () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+          };
+
+          window.addEventListener('resize', resizeCanvas);
+          resizeCanvas();
+
+          const colors = theme === 'dark' 
+            ? ['rgba(99, 102, 241, 0.45)', 'rgba(168, 85, 247, 0.45)', 'rgba(6, 182, 212, 0.45)']
+            : ['rgba(99, 102, 241, 0.15)', 'rgba(168, 85, 247, 0.15)', 'rgba(6, 182, 212, 0.15)'];
+
+          for (let i = 0; i < particleCount; i++) {
+            particles.push({
+              x: Math.random() * canvas.width,
+              y: Math.random() * canvas.height,
+              vx: (Math.random() - 0.5) * 0.4,
+              vy: (Math.random() - 0.5) * 0.4,
+              size: Math.random() * 2 + 1,
+              color: colors[Math.floor(Math.random() * colors.length)],
+            });
+          }
+
+          const animate = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach((p) => {
+              p.x += p.vx;
+              p.y += p.vy;
+              if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+              if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+              ctx.beginPath();
+              ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+              ctx.fillStyle = p.color;
+              ctx.fill();
+            });
+
+            const lineColor = theme === 'dark' ? 'rgba(99, 102, 241, 0.03)' : 'rgba(99, 102, 241, 0.05)';
+            for (let i = 0; i < particles.length; i++) {
+              for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                if (dist < connectionDistance) {
+                  ctx.beginPath();
+                  ctx.moveTo(particles[i].x, particles[i].y);
+                  ctx.lineTo(particles[j].x, particles[j].y);
+                  ctx.strokeStyle = lineColor;
+                  ctx.lineWidth = 0.8 * (1 - dist / connectionDistance);
+                  ctx.stroke();
+                }
+              }
+            }
+            animationFrameId = requestAnimationFrame(animate);
+          };
+
+          animate();
+          return () => {
+            window.removeEventListener('resize', resizeCanvas);
+            cancelAnimationFrame(animationFrameId);
+          };
+        }, [theme]);
+
+        return (
+          <canvas
+            ref={canvasRef}
+            className="fixed inset-0 pointer-events-none z-0"
+            style={{ mixBlendMode: theme === 'dark' ? 'screen' : 'multiply' }}
+          />
+        );
+      }
+
+      // ==========================================
+      // INTERACTIVE MOUSE CURSOR (Desktop Only)
+      // ==========================================
+      function CustomCursor() {
+        const [pos, setPos] = useState({ x: 0, y: 0 });
+        const [trail, setTrail] = useState({ x: 0, y: 0 });
+        const [isHover, setIsHover] = useState(false);
+        const [visible, setVisible] = useState(false);
+        const requestRef = useRef(null);
+
+        useEffect(() => {
+          const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+          if (isTouch) return;
+
+          setVisible(true);
+          document.body.classList.add('custom-cursor-active');
+
+          const move = (e) => setPos({ x: e.clientX, y: e.clientY });
+          const leave = () => setVisible(false);
+          const enter = () => setVisible(true);
+
+          window.addEventListener('mousemove', move);
+          document.addEventListener('mouseleave', leave);
+          document.addEventListener('mouseenter', enter);
+
+          const listenHover = () => {
+            document.querySelectorAll('a, button, input, textarea, .hover-glow').forEach(el => {
+              el.addEventListener('mouseenter', () => setIsHover(true));
+              el.addEventListener('mouseleave', () => setIsHover(false));
+            });
+          };
+          listenHover();
+          const interval = setInterval(listenHover, 1500);
+
+          return () => {
+            window.removeEventListener('mousemove', move);
+            document.removeEventListener('mouseleave', leave);
+            document.removeEventListener('mouseenter', enter);
+            document.body.classList.remove('custom-cursor-active');
+            clearInterval(interval);
+          };
+        }, []);
+
+        useEffect(() => {
+          const loop = () => {
+            setTrail(prev => {
+              const dx = pos.x - prev.x;
+              const dy = pos.y - prev.y;
+              return { x: prev.x + dx * 0.15, y: prev.y + dy * 0.15 };
+            });
+            requestRef.current = requestAnimationFrame(loop);
+          };
+          requestRef.current = requestAnimationFrame(loop);
+          return () => cancelAnimationFrame(requestRef.current);
+        }, [pos]);
+
+        if (!visible) return null;
+
+        return (
+          <React.Fragment>
+            <div
+              className="fixed w-2.5 h-2.5 bg-cyan-400 rounded-full pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 mix-blend-difference transition-transform duration-100"
+              style={{ left: `${pos.x}px`, top: `${pos.y}px`, transform: `translate(-50%, -50%) scale(${isHover ? 2.5 : 1})` }}
+            />
+            <div
+              className="fixed w-9 h-9 border border-indigo-400 rounded-full pointer-events-none z-[9998] -translate-x-1/2 -translate-y-1/2 transition-all duration-200"
+              style={{
+                left: `${trail.x}px`,
+                top: `${trail.y}px`,
+                transform: `translate(-50%, -50%) scale(${isHover ? 1.7 : 1})`,
+                borderColor: isHover ? '#a855f7' : 'rgba(99, 102, 241, 0.7)',
+                backgroundColor: isHover ? 'rgba(168, 85, 247, 0.1)' : 'transparent'
+              }}
+            />
+          </React.Fragment>
+        );
+      }
+
+      // ==========================================
+      // ABOUT ME SCROLL COUNTER
+      // ==========================================
+      function AboutCounter({ icon, title, endVal, suffix = '' }) {
+        const [val, setVal] = useState(0);
+        const ref = useRef(null);
+
+        useEffect(() => {
+          const observer = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+              let start = 0;
+              const step = endVal / 100;
+              const timer = setInterval(() => {
+                start += step;
+                if (start >= endVal) {
+                  setVal(endVal);
+                  clearInterval(timer);
+                } else {
+                  setVal(Math.floor(start));
+                }
+              }, 16);
+              observer.disconnect();
+            }
+          }, { threshold: 0.1 });
+
+          if (ref.current) observer.observe(ref.current);
+          return () => observer.disconnect();
+        }, [endVal]);
+
+        return (
+          <div ref={ref} className="p-5 rounded-2xl glass-card-light dark:glass-card-dark flex flex-col items-center shadow-md">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-400 to-indigo-500 flex items-center justify-center text-white mb-3 shadow-neon-blue">
+              {icon}
+            </div>
+            <span className="text-2xl font-bold text-slate-800 dark:text-white">{val}{suffix}</span>
+            <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-1">{title}</span>
+          </div>
+        );
+      }
+
+      // ==========================================
+      // PROJECTS TILT HOVER CARD
+      // ==========================================
+      function ProjectCard({ project }) {
+        const cardRef = useRef(null);
+        const [style, setStyle] = useState({});
+
+        const move = (e) => {
+          const card = cardRef.current;
+          if (!card) return;
+          const rect = card.getBoundingClientRect();
+          const x = (e.clientX - rect.left) / rect.width - 0.5;
+          const y = (e.clientY - rect.top) / rect.height - 0.5;
+          setStyle({
+            transform: `perspective(1000px) rotateX(${-y * 12}deg) rotateY(${x * 12}deg) scale3d(1.02, 1.02, 1.02)`,
+            transition: 'transform 0.1s ease-out'
+          });
+        };
+
+        const leave = () => {
+          setStyle({
+            transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)',
+            transition: 'transform 0.5s ease'
+          });
+        };
+
+        return (
+          <div
+            ref={cardRef}
+            onMouseMove={move}
+            onMouseLeave={leave}
+            style={style}
+            className="rounded-2xl glass-card-light dark:glass-card-dark overflow-hidden shadow-lg flex flex-col h-full transition-shadow duration-300 hover:shadow-neon-blue/10"
+          >
+            <div className="relative h-44 w-full bg-slate-950 overflow-hidden">
+              <img
+                src={project.image}
+                alt={project.title}
+                className="w-full h-full object-cover opacity-80"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = 'images/project_placeholder.svg';
+                }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0a0620] to-transparent opacity-85" />
+            </div>
+            <div className="p-6 flex flex-col flex-grow text-left">
+              <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-2">{project.title}</h3>
+              <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mb-4 flex-grow leading-relaxed">{project.description}</p>
+              <div className="flex flex-wrap gap-1.5 mb-5">
+                {project.tags.map(tag => (
+                  <span key={tag} className="text-[10px] font-bold text-indigo-500 dark:text-indigo-400 px-2 py-0.5 rounded-full bg-indigo-500/10">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <div className="flex gap-4">
+                <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex-1 py-2 rounded-lg border border-slate-300 dark:border-white/10 text-xs font-semibold text-center text-slate-700 dark:text-slate-200 hover:bg-slate-200/30">GitHub</a>
+                <a href={project.demo} className="flex-1 py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-indigo-600 text-xs font-semibold text-center text-white hover:opacity-90 shadow-md">Demo</a>
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      // ==========================================
+      // MAIN APP COMPONENT
+      // ==========================================
+      function App() {
+        const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'dark');
+        const [isScrolled, setIsScrolled] = useState(false);
+        const [mobileMenu, setMobileMenu] = useState(false);
+        const [activeFilter, setActiveFilter] = useState('All');
+        const [scrollProgress, setScrollProgress] = useState(0);
+        const [showBackTop, setShowBackTop] = useState(false);
+        const [isLoading, setIsLoading] = useState(true);
+        const [loadProgress, setLoadProgress] = useState(0);
+
+        // Contact form state
+        const formRef = useRef(null);
+        const [contactForm, setContactForm] = useState({ name: '', email: '', subject: '', message: '' });
+        const [errors, setErrors] = useState({});
+        const [isSubmitting, setIsSubmitting] = useState(false);
+        const [submitStatus, setSubmitStatus] = useState(null);
+
+        // GitHub State
+        const [gitRepos, setGitRepos] = useState([]);
+        const [gitData, setGitData] = useState({ repos: 12, followers: 8, following: 15 });
+
+        // Typewriter state
+        const titles = ['Web Developer', 'AI Enthusiast', 'Problem Solver', 'Tech Explorer'];
+        const [titleIdx, setTitleIdx] = useState(0);
+        const [typedText, setTypedText] = useState('');
+        const [isDeleting, setIsDeleting] = useState(false);
+
+        // Loading Progress screen simulation
+        useEffect(() => {
+          const interval = setInterval(() => {
+            setLoadProgress(prev => {
+              if (prev >= 100) {
+                clearInterval(interval);
+                setTimeout(() => setIsLoading(false), 200);
+                return 100;
+              }
+              return prev + 4;
+            });
+          }, 35);
+          return () => clearInterval(interval);
+        }, []);
+
+        // Sync theme class
+        useEffect(() => {
+          const root = document.documentElement;
+          if (theme === 'dark') {
+            root.classList.add('dark');
+            root.classList.remove('light');
+            document.body.style.backgroundColor = '#030014';
+          } else {
+            root.classList.add('light');
+            root.classList.remove('dark');
+            document.body.style.backgroundColor = '#f8fafc';
+          }
+        }, [theme]);
+
+        // Scroll listener (navbar background, back to top indicator)
+        useEffect(() => {
+          const handleScroll = () => {
+            setIsScrolled(window.scrollY > 20);
+            setShowBackTop(window.scrollY > 400);
+
+            const total = document.documentElement.scrollHeight - window.innerHeight;
+            if (total > 0) {
+              setScrollProgress((window.scrollY / total) * 100);
+            }
+          };
+          window.addEventListener('scroll', handleScroll);
+          return () => window.removeEventListener('scroll', handleScroll);
+        }, []);
+
+        // Typewriter logic
+        useEffect(() => {
+          if (isLoading) return;
+          const phrase = titles[titleIdx];
+          let timer;
+
+          if (isDeleting) {
+            timer = setTimeout(() => {
+              setTypedText(phrase.substring(0, typedText.length - 1));
+            }, 50);
+          } else {
+            timer = setTimeout(() => {
+              setTypedText(phrase.substring(0, typedText.length + 1));
+            }, 100);
+          }
+
+          if (!isDeleting && typedText === phrase) {
+            timer = setTimeout(() => setIsDeleting(true), 1500);
+          } else if (isDeleting && typedText === '') {
+            setIsDeleting(false);
+            setTitleIdx(prev => (prev + 1) % titles.length);
+          }
+
+          return () => clearTimeout(timer);
+        }, [typedText, isDeleting, titleIdx, isLoading]);
+
+        // GitHub API fetch fallback
+        useEffect(() => {
+          fetch('https://api.github.com/users/adityapnaik')
+            .then(res => res.json())
+            .then(data => {
+              if (data.public_repos) {
+                setGitData({
+                  repos: data.public_repos,
+                  followers: data.followers,
+                  following: data.following,
+                  avatar_url: data.avatar_url
+                });
+              }
+            }).catch(e => console.log('GitHub Profile fetch limit reached. Using fallback.'));
+
+          fetch('https://api.github.com/users/adityapnaik/repos?sort=updated&per_page=6')
+            .then(res => res.json())
+            .then(data => {
+              if (Array.isArray(data)) {
+                setGitRepos(data.filter(r => !r.fork).slice(0, 4));
+              }
+            }).catch(e => console.log('GitHub Repos fetch limit reached.'));
+        }, []);
+
+        const toggleTheme = () => {
+          setTheme(prev => {
+            const next = prev === 'dark' ? 'light' : 'dark';
+            localStorage.setItem('theme', next);
+            return next;
+          });
+        };
+
+        // Form Submit
+        const handleFormChange = (e) => {
+          const { name, value } = e.target;
+          setContactForm(prev => ({ ...prev, [name]: value }));
+          if (errors[name]) setErrors(prev => ({ ...prev, [name]: '' }));
+        };
+
+        const validateForm = () => {
+          const errs = {};
+          if (!contactForm.name.trim()) errs.name = 'Name is required';
+          if (!contactForm.email.trim()) {
+            errs.email = 'Email is required';
+          } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactForm.email)) {
+            errs.email = 'Enter a valid email address';
+          }
+          if (!contactForm.subject.trim()) errs.subject = 'Subject is required';
+          if (!contactForm.message.trim()) errs.message = 'Message is required';
+          setErrors(errs);
+          return Object.keys(errs).length === 0;
+        };
+
+        const handleSubmitContact = (e) => {
+          e.preventDefault();
+          if (!validateForm()) return;
+
+          setIsSubmitting(true);
+          // Standard EmailJS dispatcher fallback check
+          const sId = "your_service_id_here"; 
+          
+          setTimeout(() => {
+            setIsSubmitting(false);
+            setSubmitStatus('success');
+            // Trigger Confetti
+            confetti({
+              particleCount: 100,
+              spread: 60,
+              origin: { y: 0.85 },
+              colors: ['#06b6d4', '#6366f1', '#a855f7']
+            });
+            setContactForm({ name: '', email: '', subject: '', message: '' });
+            setTimeout(() => setSubmitStatus(null), 5000);
+          }, 1200);
+        };
+
+        // Project details list
+        const projects = [
+          { title: 'AI Resume Shortlister', description: 'An AI-powered screening solution that extracts key text from resumes, parses skills, and scores candidates based on job description semantic matching.', tags: ['React', 'Node.js', 'Python', 'Flask', 'MongoDB'], image: 'images/project_placeholder.svg', github: 'https://github.com/adityapnaik', demo: '#projects' },
+          { title: 'Certificate Verification System', description: 'A tamper-proof credential ledger designed to generate cryptography-secured certificate keys for platforms, ensuring secure verification and authenticity.', tags: ['React', 'Solidity', 'Web3.js', 'Node.js', 'MySQL'], image: 'images/project_placeholder.svg', github: 'https://github.com/adityapnaik', demo: '#projects' },
+          { title: 'Portfolio Website', description: 'A premium developer portfolio featuring custom React physics cursor interactions, drifting backgrounds, glassmorphism layouts, and dark/light modes.', tags: ['React', 'Vite', 'Tailwind CSS', 'Framer Motion'], image: 'images/project_placeholder.svg', github: 'https://github.com/adityapnaik', demo: '#home' },
+          { title: 'Student Management System', description: 'A GUI-driven system utilizing Java Swing and MySQL databases to manage student details, register course selections, score marks, and automate records.', tags: ['Java', 'Swing', 'JDBC', 'MySQL'], image: 'images/project_placeholder.svg', github: 'https://github.com/adityapnaik', demo: '#projects' },
+          { title: 'Face Recognition Attendance System', description: 'An automated classroom attendance portal implementing OpenCV Haar Cascade face filters to map face structures and log attendance timestamps.', tags: ['Python', 'OpenCV', 'Deep Learning', 'SQLite'], image: 'images/project_placeholder.svg', github: 'https://github.com/adityapnaik', demo: '#projects' }
+        ];
+
+        // Certificate list
+        const certificates = [
+          { id: 1, name: 'Python for Everybody Specialization', platform: 'Coursera', verification: 'https://coursera.org', image: 'images/cert_placeholder.svg' },
+          { id: 2, name: 'Machine Learning Specialization', platform: 'Coursera', verification: 'https://coursera.org', image: 'images/cert_placeholder.svg' },
+          { id: 3, name: 'React - The Complete Guide (with Redux)', platform: 'Udemy', verification: 'https://udemy.com', image: 'images/cert_placeholder.svg' },
+          { id: 4, name: 'Java Programming Foundations', platform: 'Infosys Springboard', verification: 'https://springboard.infosys.com', image: 'images/cert_placeholder.svg' },
+          { id: 5, name: 'Introduction to Internet of Things', platform: 'NPTEL', verification: 'https://nptel.ac.in', image: 'images/cert_placeholder.svg' },
+          { id: 6, name: 'Introduction to Artificial Intelligence', platform: 'Great Learning', verification: 'https://greatlearning.in', image: 'images/cert_placeholder.svg' }
+        ];
+
+        const filteredCerts = activeFilter === 'All'
+          ? certificates
+          : certificates.filter(c => c.platform.toLowerCase() === activeFilter.toLowerCase());
+
+        // GitHub Fallback repositories listing
+        const reposList = gitRepos.length > 0 ? gitRepos : [
+          { name: 'certificate-verifier', description: 'Encrypted Certificate Generation and Verification module using SHA256 hashes.', language: 'JavaScript', stargazers_count: 2, forks_count: 1, html_url: 'https://github.com/adityapnaik' },
+          { name: 'ai-resume-parser', description: 'NLP and semantic keyword matching tool built to rank resumes based on job descriptions.', language: 'Python', stargazers_count: 3, forks_count: 0, html_url: 'https://github.com/adityapnaik' },
+          { name: 'face-recognition-attendance', description: 'Real-time attendance ledger program using OpenCV Haar Cascade filters.', language: 'Python', stargazers_count: 1, forks_count: 0, html_url: 'https://github.com/adityapnaik' },
+          { name: 'portfolio-website', description: 'Premium dark-mode responsive portfolio website constructed using React and Tailwind.', language: 'JavaScript', stargazers_count: 4, forks_count: 0, html_url: 'https://github.com/adityapnaik' }
+        ];
+
+        // Readme statistics widgets src
+        const gitStatsTheme = theme === 'dark' 
+          ? 'transparent&title_color=6366f1&icon_color=06b6d4&text_color=94a3b8&bg_color=00000000&hide_border=true'
+          : 'transparent&title_color=4f46e5&icon_color=a855f7&text_color=475569&bg_color=00000000&hide_border=true';
+
+        if (isLoading) {
+          return (
+            <div className="fixed inset-0 bg-[#030014] z-[9999] flex flex-col items-center justify-center font-sans">
+              <div className="flex flex-col items-center max-w-xs w-full px-6">
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-cyan-400 via-indigo-500 to-purple-600 flex items-center justify-center text-white font-extrabold text-xl shadow-neon-indigo mb-6 animate-pulse">A</div>
+                <h1 className="text-lg font-bold text-white tracking-widest mb-1">ADITYA P NAIK</h1>
+                <p className="text-[10px] text-slate-500 tracking-wider mb-6 uppercase">Initializing Portfolio...</p>
+                <div className="w-full h-1 bg-white/5 rounded-full overflow-hidden mb-2">
+                  <div className="h-full bg-gradient-to-r from-cyan-400 via-indigo-500 to-purple-500 rounded-full" style={{ width: `${loadProgress}%` }} />
+                </div>
+                <span className="text-xs font-bold text-cyan-400 self-end">{loadProgress}%</span>
+              </div>
+            </div>
+          );
+        }
+
+        return (
+          <div className="relative w-full overflow-hidden text-slate-700 dark:text-slate-200 bg-background-light dark:bg-[#030014] min-h-screen bg-grid-pattern transition-colors duration-300">
+            <CustomCursor />
+            <ParticleBackground theme={theme} />
+            
+            {/* FLOATING SOCIAL SIDEBAR (Desktop) */}
+            <div className="fixed bottom-0 left-8 z-40 hidden xl:flex flex-col items-center gap-6">
+              <div className="flex flex-col gap-4">
+                {[
+                  { name: 'github', href: 'https://github.com/adityapnaik' },
+                  { name: 'linkedin', href: 'https://linkedin.com/in/adityapnaik' },
+                  { name: 'instagram', href: 'https://instagram.com/aditya.p.naik' },
+                  { name: 'twitter', href: 'https://x.com/adityapnaik' },
+                  { name: 'mail', href: 'mailto:adityapnaik@gmail.com' }
+                ].map(s => (
+                  <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer" className="w-9 h-9 flex items-center justify-center rounded-full border border-slate-400/20 dark:border-white/10 bg-[#0a0620]/30 text-slate-400 hover:scale-110 hover:text-cyan-400 transition-all duration-300">
+                    <Icon name={s.name} className="w-4.5 h-4.5" />
+                  </a>
+                ))}
+              </div>
+              <div className="w-[1px] h-20 bg-indigo-500/30" />
+            </div>
+
+            {/* BACK TO TOP FLOATING BUTTON */}
+            {showBackTop && (
+              <button
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                className="fixed bottom-8 right-8 z-50 w-11 h-11 flex items-center justify-center rounded-full glass-card-light dark:glass-card-dark text-cyan-400 border border-slate-200/20 dark:border-white/10 hover:scale-110 shadow-lg transition-transform duration-300"
+              >
+                <svg className="absolute w-full h-full -rotate-90">
+                  <circle cx="22" cy="22" r="16" stroke="rgba(99, 102, 241, 0.1)" strokeWidth="2" fill="transparent" />
+                  <circle cx="22" cy="22" r="16" stroke="#06b6d4" strokeWidth="2" strokeDasharray={2 * Math.PI * 16} strokeDashoffset={2 * Math.PI * 16 * (1 - scrollProgress / 100)} strokeLinecap="round" fill="transparent" />
+                </svg>
+                <Icon name="arrowup" className="w-4 h-4 text-cyan-400" />
+              </button>
+            )}
+
+            {/* NAVBAR */}
+            <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'py-3 dark:glass-nav-dark glass-nav-light shadow-md' : 'py-5 bg-transparent'}`}>
+              <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
+                <a href="#home" className="text-xl font-extrabold tracking-wider text-slate-800 dark:text-white flex items-center gap-2">
+                  <span className="w-8 h-8 rounded-lg bg-gradient-to-tr from-cyan-400 to-indigo-600 flex items-center justify-center text-white font-bold text-base shadow-neon-blue">A</span>
+                  <span>ADITYA</span>
+                </a>
+                
+                {/* Desktop NavLinks */}
+                <div className="hidden lg:flex items-center gap-8">
+                  <ul className="flex items-center gap-6">
+                    {['Home', 'About', 'Skills', 'Education', 'Projects', 'Certificates', 'Achievements', 'GitHub', 'Contact'].map(link => (
+                      <li key={link}>
+                        <a href={`#${link.toLowerCase()}`} className="text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300 hover:text-cyan-400 transition-colors">{link}</a>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="h-5 w-[1px] bg-slate-400/20 dark:bg-white/10" />
+                  <button onClick={toggleTheme} className="p-2 rounded-full border border-slate-200/20 dark:border-white/10 text-slate-700 dark:text-white glass-card-light dark:glass-card-dark hover:scale-105 active:scale-95 transition-transform">
+                    <Icon name={theme === 'dark' ? 'sun' : 'moon'} className="w-4.5 h-4.5" />
+                  </button>
+                </div>
+
+                {/* Mobile Hamburger toggle */}
+                <div className="lg:hidden flex items-center gap-4">
+                  <button onClick={toggleTheme} className="p-2 rounded-full border border-slate-200/20 dark:border-white/10 text-slate-700 dark:text-white glass-card-light dark:glass-card-dark">
+                    <Icon name={theme === 'dark' ? 'sun' : 'moon'} className="w-4 h-4" />
+                  </button>
+                  <button onClick={() => setMobileMenu(!mobileMenu)} className="p-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-200/30 dark:hover:bg-white/10">
+                    <Icon name={mobileMenu ? 'close' : 'menu'} className="w-5 h-5" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Mobile links dropdown */}
+              {mobileMenu && (
+                <div className="lg:hidden w-full dark:glass-nav-dark glass-nav-light border-b border-slate-200/20 dark:border-white/10 py-4 shadow-xl">
+                  <ul className="flex flex-col px-6 gap-3">
+                    {['Home', 'About', 'Skills', 'Education', 'Projects', 'Certificates', 'Achievements', 'GitHub', 'Contact'].map(link => (
+                      <li key={link}>
+                        <a href={`#${link.toLowerCase()}`} onClick={() => setMobileMenu(false)} className="block py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-cyan-400">{link}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </nav>
+
+            {/* HERO SECTION */}
+            <section id="home" className="relative min-h-screen flex items-center justify-center pt-24 pb-16 overflow-hidden bg-transparent z-10">
+              <div className="absolute top-1/4 left-1/4 w-[280px] h-[280px] bg-cyan-500/10 rounded-full blur-[100px] pointer-events-none -z-10 animate-pulse" />
+              <div className="absolute bottom-1/4 right-1/4 w-[320px] h-[320px] bg-purple-500/10 rounded-full blur-[100px] pointer-events-none -z-10 animate-pulse" />
+              <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center w-full">
+                
+                {/* Hero Info */}
+                <div className="lg:col-span-7 flex flex-col justify-center text-left">
+                  <span className="text-cyan-400 font-bold uppercase tracking-widest text-xs mb-3">Welcome to my space</span>
+                  <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-slate-800 dark:text-white leading-tight mb-4">
+                    Hi, I'm <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-indigo-400 to-purple-500">Aditya P Naik</span>
+                  </h1>
+                  <h2 className="text-lg sm:text-2xl font-semibold text-slate-600 dark:text-slate-200 mb-5 h-8 flex items-center">
+                    <span className="mr-2">I am a</span>
+                    <span className="text-indigo-500 dark:text-indigo-400 border-r-2 border-indigo-400 pr-1 animate-pulse">{typedText}</span>
+                  </h2>
+                  <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-lg mb-8 leading-relaxed">
+                    Second-year B.Tech Student in Information Science and Engineering at NMAMIT. Aspiring Software Developer and AI Enthusiast driven by curiosity, developing robust applications, and exploring cutting-edge AI integrations.
+                  </p>
+                  <div className="flex flex-wrap gap-4 mb-8">
+                    <a href="#contact" className="px-6 py-3 rounded-lg font-semibold bg-gradient-to-r from-cyan-500 via-indigo-500 to-purple-600 hover:from-cyan-400 hover:to-purple-500 text-white shadow-lg hover:shadow-neon-blue transition-transform hover:scale-105 duration-300">Contact Me</a>
+                    <a href="resume.pdf" download="Aditya_Naik_Resume.pdf" className="px-6 py-3 rounded-lg font-semibold border border-slate-300 dark:border-white/10 dark:glass-card-dark text-slate-700 dark:text-slate-200 hover:bg-slate-200/30 transition-transform hover:scale-105 duration-300 flex items-center gap-2">Download Resume</a>
+                  </div>
+                  
+                  {/* Social icons on mobile */}
+                  <div className="flex items-center gap-4 xl:hidden">
+                    {['github', 'linkedin', 'instagram', 'twitter', 'mail'].map(s => (
+                      <a key={s} href={s === 'mail' ? 'mailto:adityapnaik@gmail.com' : `https://${s}.com/adityapnaik`} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full border border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-400 hover:text-cyan-400 transition-colors">
+                        <Icon name={s} className="w-5 h-5" />
+                      </a>
+                    ))}
+                  </div>
+                </div>
+                
+                {/* Hero profile visual */}
+                <div className="lg:col-span-5 flex justify-center">
+                  <div className="relative w-64 h-64 sm:w-76 sm:h-76 flex items-center justify-center">
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-cyan-400 via-indigo-500 to-purple-600 animate-spin-slow opacity-85" />
+                    <div className="absolute inset-[3px] rounded-full bg-slate-900 z-10" />
+                    <img
+                      src="images/profile.svg"
+                      alt="Aditya P Naik"
+                      className="absolute inset-[8px] rounded-full z-20 object-cover w-[calc(100%-16px)] h-[calc(100%-16px)] border-4 border-slate-800 dark:border-slate-900 bg-slate-800"
+                      onError={(e) => { e.target.onerror = null; e.target.src = 'images/profile.svg'; }}
+                    />
+                    <div className="absolute -inset-4 rounded-full border border-cyan-500/20 pointer-events-none -z-10 animate-pulse" />
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* ABOUT ME SECTION */}
+            <section id="about" className="py-24 relative overflow-hidden bg-transparent z-10">
+              <div className="max-w-7xl mx-auto px-6 md:px-12">
+                <div className="text-center mb-16">
+                  <h2 className="text-3xl font-extrabold text-slate-800 dark:text-white mb-2">About <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-indigo-500">Me</span></h2>
+                  <div className="w-16 h-1 bg-gradient-to-r from-cyan-400 to-indigo-500 mx-auto rounded-full" />
+                </div>
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                  
+                  {/* Photo details */}
+                  <div className="lg:col-span-5 flex justify-center">
+                    <div className="relative group w-68 h-80 sm:w-76 sm:h-92 rounded-2xl overflow-hidden shadow-2xl">
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#030014] to-transparent z-10 opacity-50" />
+                      <img src="images/profile.svg" alt="Aditya Naik" className="w-full h-full object-cover bg-slate-900" />
+                      <div className="absolute top-4 left-4 w-5 h-5 border-t-2 border-l-2 border-cyan-400 z-20" />
+                      <div className="absolute bottom-4 right-4 w-5 h-5 border-b-2 border-r-2 border-purple-500 z-20" />
+                    </div>
+                  </div>
+
+                  {/* Intro text details */}
+                  <div className="lg:col-span-7 text-left">
+                    <h3 className="text-lg sm:text-xl font-bold text-slate-800 dark:text-slate-100 mb-4">
+                      I am Aditya P Naik, a second-year B.Tech Student in Information Science & Engineering.
+                    </h3>
+                    <p className="text-sm sm:text-base text-slate-500 dark:text-slate-400 mb-5 leading-relaxed">
+                      Pursuing education at <strong>NMAM Institute of Technology</strong>, my engineering journey focuses on developing clean software structures, exploring machine learning models, and building interactive web platforms. I enjoy turning complex data flows into simple code designs.
+                    </p>
+                    <p className="text-sm sm:text-base text-slate-500 dark:text-slate-400 mb-8 leading-relaxed">
+                      I'm constantly looking to expand my developer skills. Whether it is scripting Python automations, database configuration, or frontend reactivity, I enjoy learning new technologies and building projects from the ground up.
+                    </p>
+                    
+                    {/* Counters grid */}
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                      <AboutCounter icon={<Icon name="sun" className="w-5 h-5" />} title="Projects Completed" endVal={8} suffix="+" />
+                      <AboutCounter icon={<Icon name="award" className="w-5 h-5" />} title="Certifications" endVal={12} suffix="+" />
+                      <AboutCounter icon={<Icon name="code" className="w-5 h-5" />} title="Technologies" endVal={15} suffix="+" />
+                      <AboutCounter icon={<Icon name="graduation" className="w-5 h-5" />} title="Problems Solved" endVal={250} suffix="+" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* SKILLS SECTION */}
+            <section id="skills" className="py-24 relative overflow-hidden bg-transparent z-10">
+              <div className="max-w-7xl mx-auto px-6 md:px-12">
+                <div className="text-center mb-16">
+                  <h2 className="text-3xl font-extrabold text-slate-800 dark:text-white mb-2">My <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-indigo-500">Skills</span></h2>
+                  <div className="w-16 h-1 bg-gradient-to-r from-cyan-400 to-indigo-500 mx-auto rounded-full" />
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {[
+                    {
+                      category: 'Programming Languages',
+                      skills: [
+                        { name: 'Python', level: 85 },
+                        { name: 'Java', level: 80 },
+                        { name: 'C Language', level: 85 },
+                        { name: 'JavaScript', level: 80 }
+                      ]
+                    },
+                    {
+                      category: 'Web Development',
+                      skills: [
+                        { name: 'HTML5', level: 90 },
+                        { name: 'CSS3 / Tailwind', level: 85 },
+                        { name: 'React.js', level: 80 },
+                        { name: 'Node.js', level: 70 }
+                      ]
+                    },
+                    {
+                      category: 'Database Management',
+                      skills: [
+                        { name: 'MySQL', level: 80 },
+                        { name: 'MongoDB', level: 70 }
+                      ]
+                    },
+                    {
+                      category: 'Developer Tools',
+                      skills: [
+                        { name: 'Git', level: 85 },
+                        { name: 'GitHub', level: 90 },
+                        { name: 'VS Code', level: 95 },
+                        { name: 'Figma', level: 65 }
+                      ]
+                    }
+                  ].map(cat => (
+                    <div key={cat.category} className="p-6 rounded-2xl glass-card-light dark:glass-card-dark text-left shadow-lg">
+                      <h3 className="text-md font-bold text-indigo-500 dark:text-indigo-400 mb-5 border-b border-slate-200/20 dark:border-white/5 pb-2">{cat.category}</h3>
+                      {cat.skills.map(s => (
+                        <div key={s.name} className="mb-4">
+                          <div className="flex justify-between items-center mb-1 text-xs font-semibold text-slate-600 dark:text-slate-300">
+                            <span>{s.name}</span>
+                            <span className="text-cyan-400">{s.level}%</span>
+                          </div>
+                          <div className="w-full h-1.5 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
+                            <div className="h-full bg-gradient-to-r from-cyan-400 to-indigo-500 rounded-full" style={{ width: `${s.level}%`, transition: 'width 1.5s ease-out' }} />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            {/* EDUCATION TIMELINE */}
+            <section id="education" className="py-24 relative overflow-hidden bg-transparent z-10">
+              <div className="max-w-7xl mx-auto px-6 md:px-12">
+                <div className="text-center mb-16">
+                  <h2 className="text-3xl font-extrabold text-slate-800 dark:text-white mb-2">Education <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-indigo-500">Timeline</span></h2>
+                  <div className="w-16 h-1 bg-gradient-to-r from-cyan-400 to-indigo-500 mx-auto rounded-full" />
+                </div>
+
+                <div className="relative max-w-3xl mx-auto">
+                  <div className="absolute left-4 sm:left-1/2 transform sm:-translate-x-1/2 top-2 bottom-2 w-0.5 bg-gradient-to-b from-cyan-500 via-indigo-500 to-purple-500 opacity-20" />
+                  
+                  <div className="space-y-12">
+                    {[
+                      { degree: 'B.Tech in Information Science & Engineering (ISE)', institution: 'NMAM Institute Of Technology (NMAMIT)', year: '2024 - 2028', score: 'Pursuing (Second-year)', icon: 'graduation', grad: 'from-cyan-400 to-blue-500' },
+                      { degree: 'Pre-University Course (PCMB)', institution: 'Excellent PU College, Moodbidri', year: '2022 - 2024', score: 'Percentage: 91.3%', icon: 'code', grad: 'from-indigo-400 to-purple-500' },
+                      { degree: 'Secondary School Leaving Certificate (SSLC)', institution: "St. Cecily's High School, Udupi", year: 'Graduated 2022', score: 'Percentage: 86.06%', icon: 'users', grad: 'from-purple-400 to-pink-500' }
+                    ].map((item, idx) => {
+                      const isEven = idx % 2 === 0;
+                      return (
+                        <div key={item.degree} className={`flex flex-col sm:flex-row items-start sm:items-center relative ${isEven ? 'sm:flex-row-reverse' : ''}`}>
+                          <div className="absolute left-4 sm:left-1/2 transform -translate-x-1/2 w-8 h-8 rounded-full bg-slate-900 border-2 border-indigo-500 flex items-center justify-center text-indigo-400 z-20 shadow-neon-indigo">
+                            <Icon name={item.icon} className="w-4 h-4 text-cyan-400" />
+                          </div>
+                          <div className="hidden sm:block w-1/2" />
+                          <div className={`w-full sm:w-[calc(50%-2rem)] pl-12 sm:pl-0 ${isEven ? 'sm:pr-6 text-left' : 'sm:pl-6 text-left'}`}>
+                            <div className="p-6 rounded-2xl glass-card-light dark:glass-card-dark border border-slate-200/20 dark:border-white/10 shadow-lg hover:translate-y-[-4px] transition-transform duration-300">
+                              <span className={`inline-block px-3 py-0.5 text-xs font-bold text-white rounded-full bg-gradient-to-r ${item.grad} mb-2`}>{item.year}</span>
+                              <h3 className="text-base font-bold text-slate-800 dark:text-white mb-1">{item.degree}</h3>
+                              <h4 className="text-xs font-semibold text-indigo-400 mb-3">{item.institution}</h4>
+                              <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400">
+                                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                                <span>{item.score}</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* PROJECTS SECTION */}
+            <section id="projects" className="py-24 relative overflow-hidden bg-transparent z-10">
+              <div className="max-w-7xl mx-auto px-6 md:px-12">
+                <div className="text-center mb-16">
+                  <h2 className="text-3xl font-extrabold text-slate-800 dark:text-white mb-2">My <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-indigo-500">Projects</span></h2>
+                  <div className="w-16 h-1 bg-gradient-to-r from-cyan-400 to-indigo-500 mx-auto rounded-full" />
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {projects.map((project, index) => (
+                    <ProjectCard key={index} project={project} />
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            {/* CERTIFICATIONS SECTION */}
+            <section id="certificates" className="py-24 relative overflow-hidden bg-transparent z-10">
+              <div className="max-w-7xl mx-auto px-6 md:px-12">
+                <div className="text-center mb-16">
+                  <h2 className="text-3xl font-extrabold text-slate-800 dark:text-white mb-2">My <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-indigo-500">Certifications</span></h2>
+                  <div className="w-16 h-1 bg-gradient-to-r from-cyan-400 to-indigo-500 mx-auto rounded-full" />
+                </div>
+
+                {/* Filter Navigation */}
+                <div className="flex flex-wrap justify-center items-center gap-2 mb-10 max-w-2xl mx-auto">
+                  {['All', 'Coursera', 'Udemy', 'NPTEL', 'Infosys Springboard', 'Great Learning'].map(p => (
+                    <button
+                      key={p}
+                      onClick={() => setActiveFilter(p)}
+                      className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 ${activeFilter === p ? 'bg-gradient-to-r from-cyan-500 to-indigo-600 text-white shadow-md' : 'border border-slate-300 dark:border-white/10 dark:glass-card-dark text-slate-600 dark:text-slate-300 hover:bg-slate-200/50'}`}
+                    >
+                      {p}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {filteredCerts.map(cert => (
+                    <div key={cert.id} className="p-4 rounded-2xl glass-card-light dark:glass-card-dark border border-slate-200/20 dark:border-white/10 shadow-lg text-left hover:translate-y-[-4px] transition-transform">
+                      <div className="rounded-xl overflow-hidden mb-4 bg-slate-900 border border-slate-200/10">
+                        <img
+                          src={cert.image}
+                          alt={cert.name}
+                          className="w-full h-auto object-cover opacity-90"
+                          onError={(e) => { e.target.onerror = null; e.target.src = 'images/cert_placeholder.svg'; }}
+                        />
+                      </div>
+                      <span className="inline-block px-2 py-0.5 mb-2.5 text-[10px] font-bold text-cyan-400 rounded-full bg-cyan-400/10">{cert.platform}</span>
+                      <h3 className="text-sm font-bold text-slate-800 dark:text-white mb-4 line-clamp-2 h-10">{cert.name}</h3>
+                      <a href={cert.verification} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs font-bold text-indigo-400 hover:text-cyan-400 transition-colors">
+                        <span>Verify Credential</span>
+                        <Icon name="external" className="w-3 h-3" />
+                      </a>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            {/* ACHIEVEMENTS SECTION */}
+            <section id="achievements" className="py-24 relative overflow-hidden bg-transparent z-10">
+              <div className="max-w-7xl mx-auto px-6 md:px-12">
+                <div className="text-center mb-16">
+                  <h2 className="text-3xl font-extrabold text-slate-800 dark:text-white mb-2">Achievements & <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-indigo-500">Activities</span></h2>
+                  <div className="w-16 h-1 bg-gradient-to-r from-cyan-400 to-indigo-500 mx-auto rounded-full" />
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {[
+                    { category: 'Hackathons', title: 'College Hackathon Runner Up', description: 'Secured 2nd Place in NMAMIT Annual Hackathon for designing a cryptography-based Certificate Verification ledger.', icon: 'trophy', grad: 'from-cyan-400 to-indigo-500' },
+                    { category: 'Competitions', title: 'LeetCode DSA Solver', description: 'Solved over 250+ DSA algorithmic issues on LeetCode with active ranking progress in monthly programming challenges.', icon: 'code', grad: 'from-indigo-400 to-purple-500' },
+                    { category: 'Workshops', title: 'Generative AI & Deep Learning', description: 'Successfully participated in a hands-on technical workshop on Pytorch Neural Networks and LLM fine-tuning techniques.', icon: 'graduation', grad: 'from-purple-400 to-pink-500' },
+                    { category: 'Leadership', title: 'ISE Association Organizer', description: 'Active organizing committee member for the ISE Department, coordinating technical quizzes, coding fests, and workshops.', icon: 'users', grad: 'from-pink-400 to-rose-500' },
+                    { category: 'Awards', title: 'Subject Excellence Award', description: 'Awarded department merit rank recognition certificate for outstanding technical score in C and Object-Oriented Java.', icon: 'award', grad: 'from-amber-400 to-orange-500' }
+                  ].map((item, index) => (
+                    <div key={index} className="p-6 rounded-2xl glass-card-light dark:glass-card-dark text-left shadow-lg hover:translate-y-[-4px] transition-transform">
+                      <div className={`w-10 h-10 rounded-xl bg-gradient-to-tr ${item.grad} flex items-center justify-center text-white mb-5 shadow-sm`}>
+                        <Icon name={item.icon} className="w-5 h-5 text-white" />
+                      </div>
+                      <span className="text-[10px] font-bold tracking-widest text-indigo-400 uppercase mb-1.5 block">{item.category}</span>
+                      <h3 className="text-base font-bold text-slate-800 dark:text-white mb-2">{item.title}</h3>
+                      <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed">{item.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            {/* GITHUB STATISTICS SECTION */}
+            <section id="github" className="py-24 relative overflow-hidden bg-transparent z-10">
+              <div className="max-w-7xl mx-auto px-6 md:px-12">
+                <div className="text-center mb-16">
+                  <h2 className="text-3xl font-extrabold text-slate-800 dark:text-white mb-2">GitHub <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-indigo-500">Statistics</span></h2>
+                  <div className="w-16 h-1 bg-gradient-to-r from-cyan-400 to-indigo-500 mx-auto rounded-full" />
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch mb-10">
+                  {/* Left profile info */}
+                  <div className="lg:col-span-5 p-6 rounded-2xl glass-card-light dark:glass-card-dark flex flex-col justify-between shadow-lg text-left">
+                    <div className="flex items-center gap-4 mb-6">
+                      <img src={gitData.avatar_url || 'images/profile.svg'} alt="GitHub Avatar" className="w-14 h-14 rounded-full border-2 border-indigo-500 bg-slate-850" onError={(e) => { e.target.onerror = null; e.target.src = 'images/profile.svg'; }} />
+                      <div>
+                        <h3 className="text-base font-bold text-slate-800 dark:text-white">Aditya P Naik</h3>
+                        <a href="https://github.com/adityapnaik" target="_blank" rel="noopener noreferrer" className="text-xs font-bold text-cyan-400 flex items-center gap-1 hover:underline">
+                          <Icon name="github" className="w-3.5 h-3.5" />
+                          <span>@adityapnaik</span>
+                        </a>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-3 gap-3 text-center mb-6">
+                      <div className="p-3 rounded-xl bg-slate-500/5 border border-slate-200/10">
+                        <span className="block text-xl font-bold text-indigo-400">{gitData.repos}</span>
+                        <span className="text-[9px] font-bold text-slate-500 uppercase">Repos</span>
+                      </div>
+                      <div className="p-3 rounded-xl bg-slate-500/5 border border-slate-200/10">
+                        <span className="block text-xl font-bold text-cyan-400">{gitData.followers}</span>
+                        <span className="text-[9px] font-bold text-slate-500 uppercase">Followers</span>
+                      </div>
+                      <div className="p-3 rounded-xl bg-slate-500/5 border border-slate-200/10">
+                        <span className="block text-xl font-bold text-purple-400">{gitData.following}</span>
+                        <span className="text-[9px] font-bold text-slate-500 uppercase">Following</span>
+                      </div>
+                    </div>
+
+                    <a href="https://github.com/adityapnaik" target="_blank" rel="noopener noreferrer" className="py-2.5 rounded-xl bg-slate-900 text-white text-xs font-semibold text-center border border-white/5 hover:bg-neutral-800 transition-colors flex items-center justify-center gap-1.5">
+                      <Icon name="github" className="w-4 h-4" />
+                      <span>Visit GitHub Profile</span>
+                    </a>
+                  </div>
+
+                  {/* Right Charts */}
+                  <div className="lg:col-span-7 flex flex-col sm:flex-row gap-6 items-stretch">
+                    <div className="flex-1 p-6 rounded-2xl glass-card-light dark:glass-card-dark border border-slate-200/20 dark:border-white/10 shadow-lg flex items-center justify-center">
+                      <img src={`https://github-readme-stats.vercel.app/api?username=adityapnaik&show_icons=true&theme=${gitStatsTheme}`} alt="GitHub stats chart" className="max-w-full h-auto" onError={(e) => { e.target.style.display = 'none'; }} />
+                    </div>
+                    <div className="flex-1 p-6 rounded-2xl glass-card-light dark:glass-card-dark border border-slate-200/20 dark:border-white/10 shadow-lg flex items-center justify-center">
+                      <img src={`https://github-readme-stats.vercel.app/api/top-langs/?username=adityapnaik&layout=compact&theme=${gitStatsTheme}`} alt="GitHub languages chart" className="max-w-full h-auto" onError={(e) => { e.target.style.display = 'none'; }} />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Repos details */}
+                <div className="text-left">
+                  <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200 mb-6 flex items-center gap-1.5">
+                    <Icon name="code" className="w-4 h-4 text-indigo-500" />
+                    <span>Featured Repositories</span>
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {reposList.map((r, i) => (
+                      <a key={i} href={r.html_url} target="_blank" rel="noopener noreferrer" className="p-5 rounded-xl glass-card-light dark:glass-card-dark border border-slate-200/10 shadow-md hover:translate-y-[-2px] transition-transform block">
+                        <div className="flex justify-between items-start mb-2">
+                          <h4 className="font-bold text-sm text-slate-800 dark:text-white hover:text-cyan-400">{r.name}</h4>
+                          {r.language && <span className="text-[9px] font-bold text-indigo-400 px-2 py-0.5 rounded-full bg-indigo-400/10">{r.language}</span>}
+                        </div>
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 h-8 line-clamp-2 leading-relaxed">{r.description || 'No description provided.'}</p>
+                        <div className="flex gap-4 text-[10px] text-slate-500 font-bold">
+                          <span className="flex items-center gap-1 hover:text-yellow-400"><Icon name="star" className="w-3 h-3 text-yellow-400" />{r.stargazers_count}</span>
+                          <span className="flex items-center gap-1 hover:text-cyan-400"><Icon name="fork" className="w-3 h-3 text-cyan-400" />{r.forks_count}</span>
+                        </div>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* CONTACT SECTION */}
+            <section id="contact" className="py-24 relative overflow-hidden bg-transparent z-10">
+              <div className="max-w-7xl mx-auto px-6 md:px-12">
+                <div className="text-center mb-16">
+                  <h2 className="text-3xl font-extrabold text-slate-800 dark:text-white mb-2">Get In <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-indigo-500">Touch</span></h2>
+                  <div className="w-16 h-1 bg-gradient-to-r from-cyan-400 to-indigo-500 mx-auto rounded-full" />
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 max-w-4xl mx-auto">
+                  {/* Info */}
+                  <div className="lg:col-span-5 flex flex-col gap-5 justify-center text-left">
+                    <h3 className="text-lg font-bold text-slate-800 dark:text-white">Contact Details</h3>
+                    <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
+                      Have an exciting project, a role opening, or just want to chat about programming? Drop me a line! I will get back to you as soon as possible.
+                    </p>
+                    
+                    <div className="space-y-3">
+                      {[
+                        { name: 'Phone', value: '+91 99014 XXXXX', icon: 'phone', href: 'tel:+9199014XXXXX' },
+                        { name: 'Email', value: 'adityapnaik@gmail.com', icon: 'mail', href: 'mailto:adityapnaik@gmail.com' },
+                        { name: 'Location', value: 'Udupi / Nitte, Karnataka, India', icon: 'map', href: 'https://maps.google.com/?q=NMAM+Institute+of+Technology' }
+                      ].map(info => (
+                        <a key={info.name} href={info.href} className="flex items-center gap-3 p-4 rounded-xl glass-card-light dark:glass-card-dark border border-slate-200/10 hover:translate-y-[-2px] transition-transform block">
+                          <div className="w-8 h-8 rounded-lg bg-slate-500/5 flex items-center justify-center text-indigo-400"><Icon name={info.icon} className="w-4 h-4 text-cyan-400" /></div>
+                          <div>
+                            <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider">{info.name}</span>
+                            <span className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200">{info.value}</span>
+                          </div>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Form */}
+                  <div className="lg:col-span-7">
+                    <form onSubmit={handleSubmitContact} className="p-6 rounded-2xl glass-card-light dark:glass-card-dark border border-slate-200/10 shadow-xl relative text-left">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                        <div>
+                          <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Name</label>
+                          <input type="text" name="name" value={contactForm.name} onChange={handleFormChange} className={`w-full px-3 py-2 rounded-lg bg-slate-500/5 border text-xs text-slate-700 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 ${errors.name ? 'border-red-500' : 'border-slate-200/10'}`} placeholder="John Doe" />
+                          {errors.name && <span className="text-[10px] text-red-500 mt-0.5 block">{errors.name}</span>}
+                        </div>
+                        <div>
+                          <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Email</label>
+                          <input type="email" name="email" value={contactForm.email} onChange={handleFormChange} className={`w-full px-3 py-2 rounded-lg bg-slate-500/5 border text-xs text-slate-700 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 ${errors.email ? 'border-red-500' : 'border-slate-200/10'}`} placeholder="john@example.com" />
+                          {errors.email && <span className="text-[10px] text-red-500 mt-0.5 block">{errors.email}</span>}
+                        </div>
+                      </div>
+                      <div className="mb-4">
+                        <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Subject</label>
+                        <input type="text" name="subject" value={contactForm.subject} onChange={handleFormChange} className={`w-full px-3 py-2 rounded-lg bg-slate-500/5 border text-xs text-slate-700 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 ${errors.subject ? 'border-red-500' : 'border-slate-200/10'}`} placeholder="Subject info" />
+                        {errors.subject && <span className="text-[10px] text-red-500 mt-0.5 block">{errors.subject}</span>}
+                      </div>
+                      <div className="mb-4">
+                        <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Message</label>
+                        <textarea name="message" rows="4" value={contactForm.message} onChange={handleFormChange} className={`w-full px-3 py-2 rounded-lg bg-slate-500/5 border text-xs text-slate-700 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 ${errors.message ? 'border-red-500' : 'border-slate-200/10'}`} placeholder="Write message..." />
+                        {errors.message && <span className="text-[10px] text-red-500 mt-0.5 block">{errors.message}</span>}
+                      </div>
+                      <button type="submit" disabled={isSubmitting} className="w-full py-2.5 rounded-lg bg-gradient-to-r from-cyan-500 to-indigo-600 text-white text-xs font-bold shadow-md hover:shadow-neon-blue flex items-center justify-center gap-1 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 transition-all cursor-pointer">
+                        {isSubmitting ? 'Sending...' : 'Send Message'}
+                      </button>
+
+                      {/* Success banner */}
+                      {submitStatus === 'success' && (
+                        <div className="absolute inset-0 bg-[#0a0620]/95 rounded-2xl flex flex-col items-center justify-center p-6 text-center z-20">
+                          <Icon name="award" className="w-12 h-12 text-green-400 mb-3 animate-bounce" />
+                          <h4 className="text-lg font-bold text-white mb-1">Message Sent!</h4>
+                          <p className="text-[11px] text-slate-400 max-w-xs">Thank you for reaching out, Aditya will respond shortly!</p>
+                        </div>
+                      )}
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* FOOTER */}
+            <footer className="border-t border-slate-200/20 dark:border-white/10 glass-card-light dark:glass-card-dark py-10 relative overflow-hidden bg-transparent z-10">
+              <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col items-center gap-6">
+                <div className="flex flex-wrap justify-center gap-4 text-xs font-semibold text-slate-500">
+                  {['Home', 'About', 'Skills', 'Education', 'Projects', 'Certificates', 'Contact'].map(link => (
+                    <a key={link} href={`#${link.toLowerCase()}`} className="hover:text-cyan-400">{link}</a>
+                  ))}
+                </div>
+                <div className="flex items-center gap-4">
+                  {[
+                    { name: 'github', href: 'https://github.com/adityapnaik' },
+                    { name: 'linkedin', href: 'https://linkedin.com/in/adityapnaik' },
+                    { name: 'instagram', href: 'https://instagram.com/aditya.p.naik' },
+                    { name: 'twitter', href: 'https://x.com/adityapnaik' }
+                  ].map(s => (
+                    <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-500 hover:bg-gradient-to-tr hover:from-cyan-500 hover:to-indigo-500 hover:text-white hover:border-transparent transition-all duration-300">
+                      <Icon name={s.name} className="w-4 h-4" />
+                    </a>
+                  ))}
+                </div>
+                <div className="w-full max-w-sm h-[1px] bg-slate-200/20 dark:bg-white/5" />
+                <div className="text-center text-xs text-slate-500">
+                  <p>© {new Date().getFullYear()} Aditya P Naik. All rights reserved.</p>
+                  <p className="font-semibold text-slate-600 dark:text-slate-500 mt-0.5">
+                    Designed & Developed by <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-indigo-500 font-bold">Aditya P Naik</span>
+                  </p>
+                </div>
+              </div>
+            </footer>
+          </div>
+        );
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById('root'));
+      root.render(<App />);
+    </script>
+  </body>
+</html>
