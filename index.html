@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth dark">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="images/profile.svg" />
@@ -23,6 +23,16 @@
     <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script>
+      Babel.registerPreset("react-classic", {
+        presets: [
+          [
+            Babel.availablePresets["react"],
+            { runtime: "classic" }
+          ]
+        ]
+      });
+    </script>
 
     <!-- Confetti & EmailJS CDNs -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
@@ -136,25 +146,13 @@
           linear-gradient(to bottom, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
       }
 
-      /* Autofill autocomplete overrides */
-      input:-webkit-autofill,
-      input:-webkit-autofill:hover, 
-      input:-webkit-autofill:focus, 
-      textarea:-webkit-autofill,
-      textarea:-webkit-autofill:hover,
-      textarea:-webkit-autofill:focus {
-        -webkit-text-fill-color: #f1f5f9 !important;
-        -webkit-box-shadow: 0 0 0px 1000px #0a0620 inset !important;
-        transition: background-color 5000s ease-in-out 0s;
-      }
-
     </style>
   </head>
   <body class="bg-[#030014] text-slate-100 font-sans selection:bg-indigo-500/30 selection:text-indigo-200 antialiased overflow-x-hidden">
     <div id="root"></div>
 
     <!-- react code execution -->
-    <script type="text/babel">
+    <script type="text/babel" data-presets="react-classic">
       const { useState, useEffect, useRef } = React;
 
       // ==========================================
@@ -308,12 +306,12 @@
         }, [endVal]);
 
         return (
-          <div ref={ref} className="p-5 rounded-2xl glass-card-dark border border-white/10 flex flex-col items-center shadow-md">
+          <div ref={ref} className="p-5 rounded-2xl glass-card-light dark:glass-card-dark flex flex-col items-center shadow-md">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-400 to-indigo-500 flex items-center justify-center text-white mb-3 shadow-neon-blue">
               {icon}
             </div>
-            <span className="text-2xl font-bold text-white">{val}{suffix}</span>
-            <span className="text-xs font-semibold text-slate-400 mt-1">{title}</span>
+            <span className="text-2xl font-bold text-slate-800 dark:text-white">{val}{suffix}</span>
+            <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-1">{title}</span>
           </div>
         );
       }
@@ -350,7 +348,7 @@
             onMouseMove={move}
             onMouseLeave={leave}
             style={style}
-            className="rounded-2xl glass-card-dark border border-white/10 overflow-hidden shadow-lg flex flex-col h-full transition-shadow duration-300 hover:shadow-neon-blue/10"
+            className="rounded-2xl glass-card-light dark:glass-card-dark overflow-hidden shadow-lg flex flex-col h-full transition-shadow duration-300 hover:shadow-neon-blue/10"
           >
             <div className="relative h-44 w-full bg-slate-950 overflow-hidden">
               <img
@@ -365,17 +363,17 @@
               <div className="absolute inset-0 bg-gradient-to-t from-[#0a0620] to-transparent opacity-85" />
             </div>
             <div className="p-6 flex flex-col flex-grow text-left">
-              <h3 className="text-lg font-bold text-white mb-2">{project.title}</h3>
-              <p className="text-xs sm:text-sm text-slate-400 mb-4 flex-grow leading-relaxed">{project.description}</p>
+              <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-2">{project.title}</h3>
+              <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mb-4 flex-grow leading-relaxed">{project.description}</p>
               <div className="flex flex-wrap gap-1.5 mb-5">
                 {project.tags.map(tag => (
-                  <span key={tag} className="text-[10px] font-bold text-indigo-450 px-2 py-0.5 rounded-full bg-indigo-500/10">
+                  <span key={tag} className="text-[10px] font-bold text-indigo-500 dark:text-indigo-400 px-2 py-0.5 rounded-full bg-indigo-500/10">
                     {tag}
                   </span>
                 ))}
               </div>
               <div className="flex gap-4">
-                <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex-1 py-2 rounded-lg border border-white/10 bg-white/5 text-xs font-semibold text-center text-slate-200 hover:bg-white/10">GitHub</a>
+                <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex-1 py-2 rounded-lg border border-slate-300 dark:border-white/10 text-xs font-semibold text-center text-slate-700 dark:text-slate-200 hover:bg-slate-200/30">GitHub</a>
                 <a href={project.demo} className="flex-1 py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-indigo-600 text-xs font-semibold text-center text-white hover:opacity-90 shadow-md">Demo</a>
               </div>
             </div>
@@ -601,7 +599,7 @@
                   <ul className="flex items-center gap-6">
                     {['Home', 'About', 'Skills', 'Education', 'Projects', 'Achievements', 'Contact'].map(link => (
                       <li key={link}>
-                        <a href={`#${link.toLowerCase()}`} className="text-xs font-semibold uppercase tracking-wider text-slate-300 hover:text-cyan-400 transition-colors">{link}</a>
+                        <a href={`#${link.toLowerCase()}`} className="text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300 hover:text-cyan-400 transition-colors">{link}</a>
                       </li>
                     ))}
                   </ul>
@@ -609,7 +607,7 @@
 
                 {/* Mobile Hamburger toggle */}
                 <div className="lg:hidden flex items-center gap-4">
-                  <button onClick={() => setMobileMenu(!mobileMenu)} className="p-2 rounded-lg text-slate-200 hover:bg-white/10">
+                  <button onClick={() => setMobileMenu(!mobileMenu)} className="p-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-200/30 dark:hover:bg-white/10">
                     <Icon name={mobileMenu ? 'close' : 'menu'} className="w-5 h-5" />
                   </button>
                 </div>
@@ -617,11 +615,11 @@
 
               {/* Mobile links dropdown */}
               {mobileMenu && (
-                <div className="lg:hidden w-full glass-nav-dark border-b border-white/10 py-4 shadow-xl">
+                <div className="lg:hidden w-full dark:glass-nav-dark glass-nav-light border-b border-slate-200/20 dark:border-white/10 py-4 shadow-xl">
                   <ul className="flex flex-col px-6 gap-3">
                     {['Home', 'About', 'Skills', 'Education', 'Projects', 'Achievements', 'Contact'].map(link => (
                       <li key={link}>
-                        <a href={`#${link.toLowerCase()}`} onClick={() => setMobileMenu(false)} className="block py-1.5 text-sm font-medium text-slate-300 hover:text-cyan-400">{link}</a>
+                        <a href={`#${link.toLowerCase()}`} onClick={() => setMobileMenu(false)} className="block py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-cyan-400">{link}</a>
                       </li>
                     ))}
                   </ul>
@@ -808,11 +806,11 @@
                           </div>
                           <div className="hidden sm:block w-1/2" />
                           <div className={`w-full sm:w-[calc(50%-2rem)] pl-12 sm:pl-0 ${isEven ? 'sm:pr-6 text-left' : 'sm:pl-6 text-left'}`}>
-                            <div className="p-6 rounded-2xl glass-card-dark border border-white/10 shadow-lg hover:translate-y-[-4px] transition-transform duration-300">
+                            <div className="p-6 rounded-2xl glass-card-light dark:glass-card-dark border border-slate-200/20 dark:border-white/10 shadow-lg hover:translate-y-[-4px] transition-transform duration-300">
                               <span className={`inline-block px-3 py-0.5 text-xs font-bold text-white rounded-full bg-gradient-to-r ${item.grad} mb-2`}>{item.year}</span>
-                              <h3 className="text-base font-bold text-white mb-1">{item.degree}</h3>
+                              <h3 className="text-base font-bold text-slate-800 dark:text-white mb-1">{item.degree}</h3>
                               <h4 className="text-xs font-semibold text-indigo-400 mb-3">{item.institution}</h4>
-                              <div className="flex items-center gap-1.5 text-xs text-slate-400">
+                              <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400">
                                 <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
                                 <span>{item.score}</span>
                               </div>
@@ -859,13 +857,13 @@
                     { category: 'Leadership', title: 'ISE Association Organizer', description: 'Active organizing committee member for the ISE Department, coordinating technical quizzes, coding fests, and workshops.', icon: 'users', grad: 'from-pink-400 to-rose-500' },
                     { category: 'Awards', title: 'Subject Excellence Award', description: 'Awarded department merit rank recognition certificate for outstanding technical score in C and Object-Oriented Java.', icon: 'award', grad: 'from-amber-400 to-orange-500' }
                   ].map((item, index) => (
-                    <div key={index} className="p-6 rounded-2xl glass-card-dark border border-white/10 text-left shadow-lg hover:translate-y-[-4px] transition-transform">
+                    <div key={index} className="p-6 rounded-2xl glass-card-light dark:glass-card-dark text-left shadow-lg hover:translate-y-[-4px] transition-transform">
                       <div className={`w-10 h-10 rounded-xl bg-gradient-to-tr ${item.grad} flex items-center justify-center text-white mb-5 shadow-sm`}>
                         <Icon name={item.icon} className="w-5 h-5 text-white" />
                       </div>
-                      <span className="text-[10px] font-bold tracking-widest text-indigo-405 uppercase mb-1.5 block">{item.category}</span>
-                      <h3 className="text-base font-bold text-white mb-2">{item.title}</h3>
-                      <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">{item.description}</p>
+                      <span className="text-[10px] font-bold tracking-widest text-indigo-400 uppercase mb-1.5 block">{item.category}</span>
+                      <h3 className="text-base font-bold text-slate-800 dark:text-white mb-2">{item.title}</h3>
+                      <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed">{item.description}</p>
                     </div>
                   ))}
                 </div>
@@ -895,11 +893,11 @@
                         { name: 'Email', value: 'adityapnaik@gmail.com', icon: 'mail', href: 'mailto:adityapnaik@gmail.com' },
                         { name: 'Location', value: 'Udupi / Nitte, Karnataka, India', icon: 'map', href: 'https://maps.google.com/?q=NMAM+Institute+of+Technology' }
                       ].map(info => (
-                        <a key={info.name} href={info.href} className="flex items-center gap-3 p-4 rounded-xl glass-card-dark border border-white/10 hover:translate-y-[-2px] transition-transform block">
-                          <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-indigo-400"><Icon name={info.icon} className="w-4 h-4 text-cyan-400" /></div>
+                        <a key={info.name} href={info.href} className="flex items-center gap-3 p-4 rounded-xl glass-card-light dark:glass-card-dark border border-slate-200/10 hover:translate-y-[-2px] transition-transform block">
+                          <div className="w-8 h-8 rounded-lg bg-slate-500/5 flex items-center justify-center text-indigo-400"><Icon name={info.icon} className="w-4 h-4 text-cyan-400" /></div>
                           <div>
                             <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider">{info.name}</span>
-                            <span className="text-xs sm:text-sm font-semibold text-slate-200">{info.value}</span>
+                            <span className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200">{info.value}</span>
                           </div>
                         </a>
                       ))}
@@ -908,27 +906,27 @@
 
                   {/* Form */}
                   <div className="lg:col-span-7">
-                    <form onSubmit={handleSubmitContact} className="p-6 rounded-2xl glass-card-dark border border-white/10 shadow-xl relative text-left">
+                    <form onSubmit={handleSubmitContact} className="p-6 rounded-2xl glass-card-light dark:glass-card-dark border border-slate-200/10 shadow-xl relative text-left">
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                         <div>
-                          <label className="block text-[10px] font-bold text-slate-300 uppercase tracking-wider mb-1">Name</label>
-                          <input type="text" name="name" value={contactForm.name} onChange={handleFormChange} className={`w-full px-3 py-2 rounded-lg bg-white/5 border text-xs text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 ${errors.name ? 'border-red-500' : 'border-white/10'}`} placeholder="John Doe" />
+                          <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Name</label>
+                          <input type="text" name="name" value={contactForm.name} onChange={handleFormChange} className={`w-full px-3 py-2 rounded-lg bg-slate-500/5 border text-xs text-slate-700 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 ${errors.name ? 'border-red-500' : 'border-slate-200/10'}`} placeholder="John Doe" />
                           {errors.name && <span className="text-[10px] text-red-500 mt-0.5 block">{errors.name}</span>}
                         </div>
                         <div>
-                          <label className="block text-[10px] font-bold text-slate-300 uppercase tracking-wider mb-1">Email</label>
-                          <input type="email" name="email" value={contactForm.email} onChange={handleFormChange} className={`w-full px-3 py-2 rounded-lg bg-white/5 border text-xs text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 ${errors.email ? 'border-red-500' : 'border-white/10'}`} placeholder="john@example.com" />
+                          <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Email</label>
+                          <input type="email" name="email" value={contactForm.email} onChange={handleFormChange} className={`w-full px-3 py-2 rounded-lg bg-slate-500/5 border text-xs text-slate-700 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 ${errors.email ? 'border-red-500' : 'border-slate-200/10'}`} placeholder="john@example.com" />
                           {errors.email && <span className="text-[10px] text-red-500 mt-0.5 block">{errors.email}</span>}
                         </div>
                       </div>
                       <div className="mb-4">
-                        <label className="block text-[10px] font-bold text-slate-300 uppercase tracking-wider mb-1">Subject</label>
-                        <input type="text" name="subject" value={contactForm.subject} onChange={handleFormChange} className={`w-full px-3 py-2 rounded-lg bg-white/5 border text-xs text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 ${errors.subject ? 'border-red-500' : 'border-white/10'}`} placeholder="Subject info" />
+                        <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Subject</label>
+                        <input type="text" name="subject" value={contactForm.subject} onChange={handleFormChange} className={`w-full px-3 py-2 rounded-lg bg-slate-500/5 border text-xs text-slate-700 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 ${errors.subject ? 'border-red-500' : 'border-slate-200/10'}`} placeholder="Subject info" />
                         {errors.subject && <span className="text-[10px] text-red-500 mt-0.5 block">{errors.subject}</span>}
                       </div>
                       <div className="mb-4">
-                        <label className="block text-[10px] font-bold text-slate-300 uppercase tracking-wider mb-1">Message</label>
-                        <textarea name="message" rows="4" value={contactForm.message} onChange={handleFormChange} className={`w-full px-3 py-2 rounded-lg bg-white/5 border text-xs text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 ${errors.message ? 'border-red-500' : 'border-white/10'}`} placeholder="Write message..." />
+                        <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Message</label>
+                        <textarea name="message" rows="4" value={contactForm.message} onChange={handleFormChange} className={`w-full px-3 py-2 rounded-lg bg-slate-500/5 border text-xs text-slate-700 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 ${errors.message ? 'border-red-500' : 'border-slate-200/10'}`} placeholder="Write message..." />
                         {errors.message && <span className="text-[10px] text-red-500 mt-0.5 block">{errors.message}</span>}
                       </div>
                       <button type="submit" disabled={isSubmitting} className="w-full py-2.5 rounded-lg bg-gradient-to-r from-cyan-500 to-indigo-600 text-white text-xs font-bold shadow-md hover:shadow-neon-blue flex items-center justify-center gap-1 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 transition-all cursor-pointer">
