@@ -25,7 +25,7 @@ export default function ParticleBackground() {
     // Generate particles
     const createParticles = () => {
       particles = [];
-      const colors = ['rgba(99, 102, 241, 0.15)', 'rgba(168, 85, 247, 0.15)', 'rgba(6, 182, 212, 0.15)'];
+      const colors = ['rgba(99, 102, 241, 0.45)', 'rgba(168, 85, 247, 0.45)', 'rgba(6, 182, 212, 0.45)'];
 
       for (let i = 0; i < particleCount; i++) {
         particles.push({
@@ -61,7 +61,7 @@ export default function ParticleBackground() {
       });
 
       // Draw Lines between close particles
-      const lineColor = 'rgba(99, 102, 241, 0.06)';
+      const lineColor = 'rgba(99, 102, 241, 0.04)';
       
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
@@ -95,7 +95,7 @@ export default function ParticleBackground() {
     <canvas
       ref={canvasRef}
       className="fixed inset-0 pointer-events-none z-0"
-      style={{ mixBlendMode: 'multiply' }}
+      style={{ mixBlendMode: 'screen' }}
     />
   );
 }

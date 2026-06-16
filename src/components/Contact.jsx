@@ -120,20 +120,20 @@ export default function Contact() {
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-800 mb-2">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-2">
             Get In <span className="text-gradient">Touch</span>
           </h2>
-          <div className="w-16 h-1 bg-gradient-to-r from-cyan-500 to-indigo-600 mx-auto rounded-full" />
+          <div className="w-16 h-1 bg-gradient-to-r from-cyan-400 to-indigo-500 mx-auto rounded-full" />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 max-w-5xl mx-auto">
           {/* Left Side: Contact Information cards */}
           <div className="lg:col-span-5 flex flex-col gap-6 justify-center">
-            <h3 className="text-xl font-bold text-slate-800 mb-2 text-left">
+            <h3 className="text-xl font-bold text-white mb-2 text-left">
               Contact Details
             </h3>
             
-            <p className="text-sm sm:text-base text-slate-600 leading-relaxed mb-6 text-left">
+            <p className="text-sm sm:text-base text-slate-350 leading-relaxed mb-6 text-left">
               Have an exciting project, a role opening, or just want to chat about programming? 
               Drop me a line! I will get back to you as soon as possible.
             </p>
@@ -145,17 +145,17 @@ export default function Contact() {
                   href={info.href}
                   target={info.name === 'Location' ? '_blank' : '_self'}
                   rel="noopener noreferrer"
-                  className="flex items-center gap-4 p-5 rounded-2xl glass-card-light border border-slate-200/50 shadow-md hover:translate-y-[-3px] hover:shadow-lg transition-all duration-300 group"
+                  className="flex items-center gap-4 p-5 rounded-2xl glass-card-dark border border-white/10 shadow-lg hover:translate-y-[-3px] hover:shadow-neon-indigo/5 transition-all duration-300 group"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-slate-100 border border-slate-200/50 flex items-center justify-center group-hover:bg-gradient-to-tr group-hover:from-cyan-500 group-hover:to-indigo-500 group-hover:text-white transition-colors duration-300 shadow-sm">
+                  <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-gradient-to-tr group-hover:from-cyan-500 group-hover:to-indigo-500 group-hover:text-white transition-colors duration-300 shadow-sm">
                     {info.icon}
                   </div>
                   
                   <div className="text-left">
-                    <span className="block text-xs font-bold text-slate-500 uppercase tracking-wider">
+                    <span className="block text-xs font-bold text-slate-400 uppercase tracking-wider">
                       {info.name}
                     </span>
-                    <span className="text-sm font-semibold text-slate-700 break-all">
+                    <span className="text-sm font-semibold text-slate-200 break-all">
                       {info.value}
                     </span>
                   </div>
@@ -169,12 +169,12 @@ export default function Contact() {
             <form
               ref={formRef}
               onSubmit={handleSubmit}
-              className="p-6 sm:p-8 rounded-2xl glass-card-light border border-slate-200/50 shadow-lg relative"
+              className="p-6 sm:p-8 rounded-2xl glass-card-dark border border-white/10 shadow-xl relative"
             >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
                 {/* Name */}
                 <div className="text-left">
-                  <label htmlFor="name" className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">
+                  <label htmlFor="name" className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">
                     Name
                   </label>
                   <input
@@ -183,8 +183,8 @@ export default function Contact() {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className={`w-full px-4 py-3 rounded-xl bg-white border text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-indigo-600 focus:border-indigo-600 transition-all ${
-                      errors.name ? 'border-red-500' : 'border-slate-200'
+                    className={`w-full px-4 py-3 rounded-xl bg-white/5 border text-sm text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 focus:border-cyan-400 transition-all ${
+                      errors.name ? 'border-red-500' : 'border-white/10'
                     }`}
                     placeholder="John Doe"
                   />
@@ -193,7 +193,7 @@ export default function Contact() {
 
                 {/* Email */}
                 <div className="text-left">
-                  <label htmlFor="email" className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">
+                  <label htmlFor="email" className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">
                     Email
                   </label>
                   <input
@@ -202,8 +202,8 @@ export default function Contact() {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className={`w-full px-4 py-3 rounded-xl bg-white border text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-indigo-600 focus:border-indigo-600 transition-all ${
-                      errors.email ? 'border-red-500' : 'border-slate-200'
+                    className={`w-full px-4 py-3 rounded-xl bg-white/5 border text-sm text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 focus:border-cyan-400 transition-all ${
+                      errors.email ? 'border-red-500' : 'border-white/10'
                     }`}
                     placeholder="john@example.com"
                   />
@@ -213,7 +213,7 @@ export default function Contact() {
 
               {/* Subject */}
               <div className="mb-5 text-left">
-                <label htmlFor="subject" className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">
+                <label htmlFor="subject" className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">
                   Subject
                 </label>
                 <input
@@ -222,8 +222,8 @@ export default function Contact() {
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
-                  className={`w-full px-4 py-3 rounded-xl bg-white border text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-indigo-600 focus:border-indigo-600 transition-all ${
-                    errors.subject ? 'border-red-500' : 'border-slate-200'
+                  className={`w-full px-4 py-3 rounded-xl bg-white/5 border text-sm text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 focus:border-cyan-400 transition-all ${
+                    errors.subject ? 'border-red-500' : 'border-white/10'
                   }`}
                   placeholder="Collaboration Project"
                 />
@@ -232,7 +232,7 @@ export default function Contact() {
 
               {/* Message */}
               <div className="mb-6 text-left">
-                <label htmlFor="message" className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">
+                <label htmlFor="message" className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">
                   Message
                 </label>
                 <textarea
@@ -241,8 +241,8 @@ export default function Contact() {
                   rows="5"
                   value={formData.message}
                   onChange={handleChange}
-                  className={`w-full px-4 py-3 rounded-xl bg-white border text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-indigo-600 focus:border-indigo-600 transition-all ${
-                    errors.message ? 'border-red-500' : 'border-slate-200'
+                  className={`w-full px-4 py-3 rounded-xl bg-white/5 border text-sm text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 focus:border-cyan-400 transition-all ${
+                    errors.message ? 'border-red-500' : 'border-white/10'
                   }`}
                   placeholder="Write your message here..."
                 />
@@ -253,7 +253,7 @@ export default function Contact() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-3.5 rounded-xl font-bold bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white shadow-md flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 disabled:pointer-events-none transition-all duration-300 cursor-pointer"
+                className="w-full py-3.5 rounded-xl font-bold bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white shadow-lg hover:shadow-neon-blue flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 disabled:pointer-events-none transition-all duration-300 cursor-pointer"
               >
                 {isSubmitting ? (
                   <>
@@ -275,11 +275,11 @@ export default function Contact() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
-                    className="absolute inset-0 bg-white/95 backdrop-blur-sm rounded-2xl flex flex-col items-center justify-center p-6 text-center z-20 border border-slate-200/50 shadow-lg"
+                    className="absolute inset-0 bg-[#0a0620]/95 backdrop-blur-sm rounded-2xl flex flex-col items-center justify-center p-6 text-center z-20 border border-white/5 shadow-lg"
                   >
-                    <FaCheckCircle className="w-14 h-14 text-green-600 mb-4 animate-bounce" />
-                    <h4 className="text-xl font-bold text-slate-800 mb-2">Message Sent!</h4>
-                    <p className="text-xs sm:text-sm text-slate-600 max-w-sm">
+                    <FaCheckCircle className="w-14 h-14 text-green-400 mb-4 animate-bounce" />
+                    <h4 className="text-xl font-bold text-white mb-2">Message Sent!</h4>
+                    <p className="text-xs sm:text-sm text-slate-400 max-w-sm">
                       Thank you for reaching out, Aditya will respond to your message shortly!
                     </p>
                   </motion.div>
@@ -289,7 +289,7 @@ export default function Contact() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
-                    className="mt-4 p-3 rounded-lg border border-red-200 bg-red-50 text-red-600 text-sm font-semibold"
+                    className="mt-4 p-3 rounded-lg border border-red-500/20 bg-red-500/10 text-red-400 text-sm font-semibold"
                   >
                     Oops! Something went wrong. Please check your credentials and try again.
                   </motion.div>

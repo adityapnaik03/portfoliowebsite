@@ -61,10 +61,10 @@ export default function Skills() {
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-800 mb-2">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-2">
             My <span className="text-gradient">Skills</span>
           </h2>
-          <div className="w-16 h-1 bg-gradient-to-r from-cyan-500 to-indigo-600 mx-auto rounded-full" />
+          <div className="w-16 h-1 bg-gradient-to-r from-cyan-400 to-indigo-500 mx-auto rounded-full" />
         </div>
 
         {/* Categories Grid */}
@@ -73,15 +73,15 @@ export default function Skills() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-100px' }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
         >
           {skillCategories.map((category) => (
             <motion.div
               key={category.title}
               variants={cardVariants}
-              className="p-6 sm:p-8 rounded-2xl glass-card-light border border-slate-200/50 shadow-md hover:shadow-lg transition-all duration-300"
+              className="p-6 sm:p-8 rounded-2xl glass-card-dark border border-white/10 shadow-lg hover:shadow-neon-indigo/5 transition-all duration-300"
             >
-              <h3 className="text-sm font-extrabold text-indigo-600 mb-4 border-b border-slate-200/40 pb-2 uppercase tracking-wider">
+              <h3 className="text-sm font-extrabold text-indigo-400 mb-4 border-b border-white/5 pb-3 uppercase tracking-wider">
                 {category.title}
               </h3>
               
@@ -89,9 +89,9 @@ export default function Skills() {
                 {category.skills.map((skill) => (
                   <span
                     key={skill.name}
-                    className="px-3.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200/50 text-slate-700 text-xs font-bold border border-slate-200/50 shadow-sm transition-all duration-200 hover:scale-[1.03] flex items-center gap-1.5"
+                    className="px-3.5 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-200 text-xs font-bold border border-white/10 shadow-sm transition-all duration-200 hover:scale-[1.03] flex items-center gap-1.5"
                   >
-                    <span className="text-sm text-indigo-600">{skill.icon}</span>
+                    <span className="text-sm text-indigo-400">{skill.icon}</span>
                     <span>{skill.name}</span>
                   </span>
                 ))}

@@ -48,7 +48,7 @@ export default function BackToTop() {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.5, y: 50 }}
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 z-50 w-12 h-12 flex items-center justify-center rounded-full glass-card-light text-indigo-600 border border-slate-200 hover:scale-110 active:scale-95 shadow-lg transition-transform duration-300"
+          className="fixed bottom-8 right-8 z-50 w-12 h-12 flex items-center justify-center rounded-full glass-card-dark text-cyan-400 hover:text-indigo-400 border border-white/10 hover:scale-110 active:scale-95 shadow-lg transition-transform duration-300"
           aria-label="Scroll back to top"
         >
           {/* Progress Circle background */}
@@ -57,7 +57,7 @@ export default function BackToTop() {
               cx="24"
               cy="24"
               r={radius}
-              stroke="rgba(79, 70, 229, 0.1)"
+              stroke="rgba(99, 102, 241, 0.1)"
               strokeWidth={strokeWidth}
               fill="transparent"
             />
@@ -76,13 +76,13 @@ export default function BackToTop() {
             {/* Gradients */}
             <defs>
               <linearGradient id="progressGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#4f46e5" />
+                <stop offset="0%" stopColor="#06b6d4" />
                 <stop offset="100%" stopColor="#6366f1" />
               </linearGradient>
             </defs>
           </svg>
           
-          <FaArrowUp className="w-4 h-4 text-indigo-600" />
+          <FaArrowUp className="w-4 h-4 text-cyan-400" />
         </motion.button>
       )}
     </AnimatePresence>

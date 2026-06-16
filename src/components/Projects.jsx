@@ -42,10 +42,10 @@ function ProjectCard({ project }) {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={tiltStyle}
-      className="rounded-2xl glass-card-light border border-slate-200/50 overflow-hidden shadow-md hover:shadow-lg flex flex-col h-full select-none transition-shadow duration-300"
+      className="rounded-2xl glass-card-dark border border-white/10 overflow-hidden shadow-lg hover:shadow-neon-blue/5 flex flex-col h-full select-none transition-shadow duration-300"
     >
       {/* Project Thumbnail Image */}
-      <div className="relative h-48 w-full overflow-hidden bg-slate-100">
+      <div className="relative h-48 w-full overflow-hidden bg-[#030014]/50">
         <img
           src={project.image}
           alt={project.title}
@@ -56,16 +56,16 @@ function ProjectCard({ project }) {
           }}
         />
         {/* Absolute Glowing Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-100/30 via-transparent to-transparent opacity-80 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#030014]/80 via-transparent to-transparent opacity-80 pointer-events-none" />
       </div>
 
       {/* Details Container */}
       <div className="p-6 flex flex-col flex-grow">
-        <h3 className="text-lg font-extrabold text-slate-800 mb-2">
+        <h3 className="text-lg font-extrabold text-white mb-2">
           {project.title}
         </h3>
         
-        <p className="text-sm text-slate-600 mb-5 leading-relaxed flex-grow">
+        <p className="text-sm text-slate-300 mb-5 leading-relaxed flex-grow">
           {project.description}
         </p>
 
@@ -74,7 +74,7 @@ function ProjectCard({ project }) {
           {project.tags.map((tag) => (
             <span
               key={tag}
-              className="text-[10px] sm:text-xs font-bold text-indigo-600 px-2.5 py-0.5 rounded-full bg-indigo-500/5"
+              className="text-[10px] sm:text-xs font-bold text-indigo-400 px-2.5 py-0.5 rounded-full bg-indigo-500/10"
             >
               {tag}
             </span>
@@ -87,7 +87,7 @@ function ProjectCard({ project }) {
             href={project.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 flex items-center justify-center gap-2 px-4 py-2 text-xs font-semibold rounded-lg border border-slate-200 bg-white text-slate-700 hover:bg-slate-100 transition-all duration-300"
+            className="flex-1 flex items-center justify-center gap-2 px-4 py-2 text-xs font-semibold rounded-lg border border-white/10 bg-white/5 text-slate-200 hover:bg-white/10 transition-all duration-300"
           >
             <FaGithub className="w-4 h-4" />
             <span>GitHub</span>
@@ -173,10 +173,10 @@ export default function Projects() {
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-800 mb-2">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-2">
             My <span className="text-gradient">Projects</span>
           </h2>
-          <div className="w-16 h-1 bg-gradient-to-r from-cyan-500 to-indigo-600 mx-auto rounded-full" />
+          <div className="w-16 h-1 bg-gradient-to-r from-cyan-400 to-indigo-500 mx-auto rounded-full" />
         </div>
 
         {/* Project Grid */}

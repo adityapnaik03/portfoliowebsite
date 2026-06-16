@@ -31,16 +31,16 @@ function StatCard({ icon, title, endVal, suffix = '' }) {
   return (
     <div
       ref={ref}
-      className="p-6 rounded-2xl glass-card-light border border-slate-200/50 flex flex-col items-center text-center shadow-md hover:translate-y-[-5px] transition-all duration-300"
+      className="p-6 rounded-2xl glass-card-dark border border-white/10 flex flex-col items-center text-center shadow-md hover:translate-y-[-5px] transition-all duration-300"
     >
-      <div className="w-12 h-12 rounded-xl bg-gradient-to-tr from-cyan-400 to-indigo-500 flex items-center justify-center text-white mb-4 shadow-md">
+      <div className="w-12 h-12 rounded-xl bg-gradient-to-tr from-cyan-400 to-indigo-500 flex items-center justify-center text-white mb-4 shadow-neon-blue">
         {icon}
       </div>
-      <span className="text-3xl font-extrabold text-slate-800 mb-1">
+      <span className="text-3xl font-extrabold text-white mb-1">
         {count}
         {suffix}
       </span>
-      <span className="text-sm font-bold text-slate-600">
+      <span className="text-sm font-bold text-slate-400">
         {title}
       </span>
     </div>
@@ -66,10 +66,10 @@ export default function About() {
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-800 mb-2">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-2">
             About <span className="text-gradient">Me</span>
           </h2>
-          <div className="w-16 h-1 bg-gradient-to-r from-cyan-500 to-indigo-600 mx-auto rounded-full" />
+          <div className="w-16 h-1 bg-gradient-to-r from-cyan-400 to-indigo-500 mx-auto rounded-full" />
         </div>
 
         <motion.div
@@ -81,12 +81,12 @@ export default function About() {
         >
           {/* Left Side: Avatar/Photo */}
           <motion.div variants={itemVariants} className="lg:col-span-5 flex justify-center">
-            <div className="relative group w-72 h-80 sm:w-80 sm:h-96 rounded-2xl overflow-hidden shadow-xl border border-slate-200">
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-100/50 via-transparent to-transparent z-10 opacity-30" />
+            <div className="relative group w-72 h-80 sm:w-80 sm:h-96 rounded-2xl overflow-hidden shadow-2xl border border-white/10">
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/50 via-transparent to-transparent z-10 opacity-30" />
               <img
                 src="/images/profile.svg"
                 alt="Aditya Profile Detail"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 bg-slate-100"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 bg-[#0a0620]"
                 onError={(e) => {
                   e.target.onerror = null;
                   e.target.src = '/images/profile.svg';
@@ -100,18 +100,18 @@ export default function About() {
 
           {/* Right Side: Introduction Text */}
           <motion.div variants={itemVariants} className="lg:col-span-7 flex flex-col justify-center text-left">
-            <h3 className="text-xl sm:text-2xl font-bold text-slate-800 mb-4">
+            <h3 className="text-xl sm:text-2xl font-bold text-white mb-4">
               I am Aditya P Naik, a second-year B.Tech Student in Information Science & Engineering.
             </h3>
             
-            <p className="text-slate-600 mb-6 leading-relaxed">
+            <p className="text-slate-300 mb-6 leading-relaxed">
               Based at <strong>NMAM Institute of Technology</strong>, 
               my engineering journey is fueled by a passion for creating performant desktop and web software systems, 
               delving into Artificial Intelligence workflows, and solving algorithmic problems. 
               I love engineering code that solves actual real-world problems and creating fluid user experiences.
             </p>
 
-            <p className="text-slate-600 mb-8 leading-relaxed">
+            <p className="text-slate-300 mb-8 leading-relaxed">
               I'm constantly looking to expand my technological footprint. Whether it's structural backend engines, 
               front-end animations, or local machine learning training pipelines, I enjoy building projects 
               from scratch and turning complex operations into elegant code solutions.

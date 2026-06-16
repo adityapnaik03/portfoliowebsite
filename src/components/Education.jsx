@@ -43,10 +43,10 @@ export default function Education() {
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* Section Title */}
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-800 mb-2">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-2">
             Education <span className="text-gradient">Timeline</span>
           </h2>
-          <div className="w-16 h-1 bg-gradient-to-r from-cyan-500 to-indigo-600 mx-auto rounded-full" />
+          <div className="w-16 h-1 bg-gradient-to-r from-cyan-400 to-indigo-500 mx-auto rounded-full" />
         </div>
 
         {/* Timeline Container */}
@@ -71,7 +71,7 @@ export default function Education() {
                     whileInView={{ scale: 1, opacity: 1 }}
                     viewport={{ once: true, margin: '-50px' }}
                     transition={{ type: 'spring', stiffness: 260, damping: 20, delay: 0.1 }}
-                    className={`absolute left-4 sm:left-1/2 transform -translate-x-1/2 w-8 h-8 rounded-full bg-slate-100 border-2 border-indigo-600 flex items-center justify-center text-indigo-600 z-20 ${item.shadow}`}
+                    className={`absolute left-4 sm:left-1/2 transform -translate-x-1/2 w-8 h-8 rounded-full bg-slate-900 border-2 border-indigo-500 flex items-center justify-center text-indigo-400 z-20 ${item.shadow}`}
                   >
                     {item.icon}
                   </motion.div>
@@ -89,21 +89,21 @@ export default function Education() {
                       isEven ? 'sm:pr-8' : 'sm:pl-8'
                     }`}
                   >
-                    <div className="p-6 rounded-2xl glass-card-light border border-slate-200/50 shadow-md hover:shadow-lg hover:translate-y-[-4px] transition-all duration-300">
+                    <div className="p-6 rounded-2xl glass-card-dark border border-white/10 shadow-lg hover:shadow-neon-indigo/5 hover:translate-y-[-4px] transition-all duration-300">
                       {/* Year badge */}
                       <span className={`inline-block px-3 py-1 text-xs font-bold text-white rounded-full bg-gradient-to-r ${item.color} mb-3`}>
                         {item.year}
                       </span>
                       
-                      <h3 className="text-lg font-extrabold text-slate-800 mb-1">
+                      <h3 className="text-lg font-extrabold text-white mb-1">
                         {item.degree}
                       </h3>
                       
-                      <h4 className="text-sm font-extrabold text-indigo-600 mb-4">
+                      <h4 className="text-sm font-extrabold text-indigo-400 mb-4">
                         {item.institution}
                       </h4>
                       
-                      <div className="flex items-center gap-2 text-sm text-slate-600 font-medium">
+                      <div className="flex items-center gap-2 text-sm text-slate-300 font-medium">
                         <span className="w-1.5 h-1.5 rounded-full bg-cyan-500" />
                         <span>{item.score}</span>
                       </div>

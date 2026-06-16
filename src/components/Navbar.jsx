@@ -32,14 +32,14 @@ export default function Navbar() {
     <nav
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         isScrolled
-          ? 'py-3 glass-nav-light shadow-md'
+          ? 'py-3 glass-nav-dark shadow-md'
           : 'py-5 bg-transparent'
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
         {/* Logo */}
-        <a href="#home" className="text-xl font-extrabold tracking-wider text-slate-800 flex items-center gap-2">
-          <span className="w-8 h-8 rounded-lg bg-gradient-to-tr from-cyan-400 to-indigo-600 flex items-center justify-center text-white font-bold text-base shadow-sm">
+        <a href="#home" className="text-xl font-extrabold tracking-wider text-slate-100 flex items-center gap-2">
+          <span className="w-8 h-8 rounded-lg bg-gradient-to-tr from-cyan-400 to-indigo-600 flex items-center justify-center text-white font-bold text-base shadow-neon-blue">
             A
           </span>
           <span>ADITYA</span>
@@ -52,7 +52,7 @@ export default function Navbar() {
               <li key={link.name}>
                 <a
                   href={link.href}
-                  className="text-sm font-bold text-slate-700 hover:text-indigo-600 hover:scale-105 transition-all duration-200"
+                  className="text-sm font-bold text-slate-300 hover:text-cyan-400 hover:scale-105 transition-all duration-200"
                 >
                   {link.name}
                 </a>
@@ -65,7 +65,7 @@ export default function Navbar() {
         <div className="lg:hidden flex items-center gap-4">
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="p-2 rounded-lg text-slate-700 hover:bg-slate-200/30 transition-colors"
+            className="p-2 rounded-lg text-slate-300 hover:bg-white/10 transition-colors"
             aria-label="Toggle Menu"
           >
             {isOpen ? <HiX className="w-6 h-6" /> : <HiMenuAlt3 className="w-6 h-6" />}
@@ -81,7 +81,7 @@ export default function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="lg:hidden w-full glass-nav-light border-b border-slate-200/20 overflow-hidden shadow-xl"
+            className="lg:hidden w-full glass-nav-dark border-b border-white/5 overflow-hidden shadow-xl"
           >
             <ul className="flex flex-col px-6 py-4 gap-4">
               {navLinks.map((link) => (
@@ -89,7 +89,7 @@ export default function Navbar() {
                   <a
                     href={link.href}
                     onClick={() => setIsOpen(false)}
-                    className="block py-2 text-sm font-semibold text-slate-700 hover:text-indigo-600 transition-colors"
+                    className="block py-2 text-sm font-semibold text-slate-300 hover:text-cyan-400 transition-colors"
                   >
                     {link.name}
                   </a>

@@ -36,7 +36,7 @@ function LoadingScreen() {
 
   return (
     <motion.div
-      className="fixed inset-0 bg-slate-50 z-[9999] flex flex-col items-center justify-center"
+      className="fixed inset-0 bg-[#030014] z-[9999] flex flex-col items-center justify-center"
       exit={{ opacity: 0, transition: { duration: 0.8, ease: 'easeInOut' } }}
     >
       <div className="flex flex-col items-center max-w-xs w-full px-6">
@@ -44,13 +44,13 @@ function LoadingScreen() {
         <motion.div
           animate={{ scale: [1, 1.1, 1] }}
           transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-          className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-cyan-500 to-indigo-600 flex items-center justify-center text-white font-extrabold text-2xl shadow-md mb-8"
+          className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-cyan-400 via-indigo-500 to-purple-600 flex items-center justify-center text-white font-extrabold text-2xl shadow-neon-indigo mb-8"
         >
           A
         </motion.div>
         
         {/* Dynamic Name Title */}
-        <h1 className="text-xl font-bold text-slate-800 tracking-widest mb-2 font-sans text-center">
+        <h1 className="text-xl font-bold text-white tracking-widest mb-2 font-sans text-center">
           ADITYA P NAIK
         </h1>
         <p className="text-xs text-slate-500 tracking-wider mb-8 text-center uppercase">
@@ -58,14 +58,14 @@ function LoadingScreen() {
         </p>
 
         {/* Loading Progress Bar */}
-        <div className="w-full h-1 bg-slate-200 rounded-full overflow-hidden mb-2">
+        <div className="w-full h-1 bg-white/5 rounded-full overflow-hidden mb-2">
           <div
-            className="h-full bg-gradient-to-r from-cyan-500 to-indigo-600 rounded-full transition-all duration-100 ease-out"
+            className="h-full bg-gradient-to-r from-cyan-400 via-indigo-500 to-purple-500 rounded-full transition-all duration-100 ease-out"
             style={{ width: `${percent}%` }}
           />
         </div>
         
-        <span className="text-xs font-bold text-indigo-600 self-end">
+        <span className="text-xs font-bold text-cyan-400 self-end">
           {percent}%
         </span>
       </div>
@@ -84,12 +84,12 @@ export default function App() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Sync theme with HTML class - always light mode
+  // Sync theme with HTML class - always dark mode
   useEffect(() => {
     const root = window.document.documentElement;
-    root.classList.add('light');
-    root.classList.remove('dark');
-    root.style.backgroundColor = '#f8fafc';
+    root.classList.add('dark');
+    root.classList.remove('light');
+    root.style.backgroundColor = '#030014';
   }, []);
 
   return (
@@ -99,7 +99,7 @@ export default function App() {
       </AnimatePresence>
 
       {!isLoading && (
-        <div className="relative w-full overflow-hidden text-slate-700 bg-background-light min-h-screen bg-grid-pattern transition-colors duration-300">
+        <div className="relative w-full overflow-hidden text-slate-100 bg-background-dark min-h-screen bg-grid-pattern transition-colors duration-300">
           
           {/* Dynamic interactive elements */}
           <ParticleBackground />
