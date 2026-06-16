@@ -67,10 +67,10 @@ export default function Achievements() {
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-800 dark:text-white mb-2">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-800 mb-2">
             Achievements & <span className="text-gradient">Activities</span>
           </h2>
-          <div className="w-16 h-1 bg-gradient-to-r from-cyan-400 to-indigo-500 mx-auto rounded-full" />
+          <div className="w-16 h-1 bg-gradient-to-r from-cyan-500 to-indigo-600 mx-auto rounded-full" />
         </div>
 
         {/* Achievements Grid */}
@@ -85,7 +85,7 @@ export default function Achievements() {
             <motion.div
               key={item.id}
               variants={itemVariants}
-              className={`p-6 sm:p-8 rounded-2xl glass-card-light dark:glass-card-dark border border-slate-200/20 dark:border-white/10 shadow-lg transition-all duration-300 ${item.shadow} hover:translate-y-[-5px]`}
+              className="p-6 sm:p-8 rounded-2xl glass-card-light border border-slate-200/50 shadow-md hover:shadow-lg transition-all duration-300 hover:translate-y-[-5px]"
             >
               {/* Badge Icon */}
               <div className={`w-12 h-12 rounded-xl bg-gradient-to-tr ${item.color} flex items-center justify-center text-white mb-6 shadow-md`}>
@@ -93,17 +93,17 @@ export default function Achievements() {
               </div>
 
               {/* Category */}
-              <span className="text-[10px] sm:text-xs font-bold tracking-widest text-indigo-500 dark:text-indigo-400 uppercase mb-2 block">
+              <span className="text-[10px] sm:text-xs font-bold tracking-widest text-indigo-600 uppercase mb-2 block">
                 {item.category}
               </span>
 
               {/* Title */}
-              <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-3">
+              <h3 className="text-lg font-bold text-slate-800 mb-3">
                 {item.title}
               </h3>
 
               {/* Description */}
-              <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+              <p className="text-sm text-slate-600 leading-relaxed">
                 {item.description}
               </p>
             </motion.div>

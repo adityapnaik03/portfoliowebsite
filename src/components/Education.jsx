@@ -11,8 +11,8 @@ export default function Education() {
       year: '2024 - 2028',
       score: 'Pursuing (CGPA: Current)',
       icon: <FaGraduationCap className="w-5 h-5" />,
-      color: 'from-cyan-400 to-blue-500',
-      shadow: 'shadow-neon-blue',
+      color: 'from-cyan-500 to-indigo-600',
+      shadow: 'shadow-sm',
     },
     {
       id: 2,
@@ -22,8 +22,8 @@ export default function Education() {
       year: '2022 - 2024',
       score: 'Percentage: 91.3%',
       icon: <FaBookReader className="w-5 h-5" />,
-      color: 'from-indigo-400 to-purple-500',
-      shadow: 'shadow-neon-indigo',
+      color: 'from-indigo-500 to-purple-600',
+      shadow: 'shadow-sm',
     },
     {
       id: 3,
@@ -33,8 +33,8 @@ export default function Education() {
       year: 'Graduated 2022',
       score: 'Percentage: 86.06%',
       icon: <FaSchool className="w-5 h-5" />,
-      color: 'from-purple-400 to-pink-500',
-      shadow: 'shadow-neon-purple',
+      color: 'from-purple-500 to-pink-500',
+      shadow: 'shadow-sm',
     },
   ];
 
@@ -43,16 +43,16 @@ export default function Education() {
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* Section Title */}
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-800 dark:text-white mb-2">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-800 mb-2">
             Education <span className="text-gradient">Timeline</span>
           </h2>
-          <div className="w-16 h-1 bg-gradient-to-r from-cyan-400 to-indigo-500 mx-auto rounded-full" />
+          <div className="w-16 h-1 bg-gradient-to-r from-cyan-500 to-indigo-600 mx-auto rounded-full" />
         </div>
 
         {/* Timeline Container */}
         <div className="relative max-w-4xl mx-auto">
           {/* Vertical central line (desktop-only or left-aligned on mobile) */}
-          <div className="absolute left-4 sm:left-1/2 transform sm:-translate-x-1/2 top-2 bottom-2 w-0.5 bg-gradient-to-b from-cyan-500 via-indigo-500 to-purple-500 opacity-30" />
+          <div className="absolute left-4 sm:left-1/2 transform sm:-translate-x-1/2 top-2 bottom-2 w-0.5 bg-gradient-to-b from-cyan-500 via-indigo-500 to-purple-500 opacity-20" />
 
           {/* Timeline Cards */}
           <div className="space-y-12">
@@ -71,7 +71,7 @@ export default function Education() {
                     whileInView={{ scale: 1, opacity: 1 }}
                     viewport={{ once: true, margin: '-50px' }}
                     transition={{ type: 'spring', stiffness: 260, damping: 20, delay: 0.1 }}
-                    className={`absolute left-4 sm:left-1/2 transform -translate-x-1/2 w-8 h-8 rounded-full bg-slate-900 border-2 border-indigo-500 flex items-center justify-center text-indigo-400 z-20 ${item.shadow}`}
+                    className={`absolute left-4 sm:left-1/2 transform -translate-x-1/2 w-8 h-8 rounded-full bg-slate-100 border-2 border-indigo-600 flex items-center justify-center text-indigo-600 z-20 ${item.shadow}`}
                   >
                     {item.icon}
                   </motion.div>
@@ -89,22 +89,22 @@ export default function Education() {
                       isEven ? 'sm:pr-8' : 'sm:pl-8'
                     }`}
                   >
-                    <div className="p-6 rounded-2xl glass-card-light dark:glass-card-dark border border-slate-200/20 dark:border-white/10 shadow-lg hover:shadow-neon-indigo/5 hover:translate-y-[-4px] transition-all duration-300">
+                    <div className="p-6 rounded-2xl glass-card-light border border-slate-200/50 shadow-md hover:shadow-lg hover:translate-y-[-4px] transition-all duration-300">
                       {/* Year badge */}
                       <span className={`inline-block px-3 py-1 text-xs font-bold text-white rounded-full bg-gradient-to-r ${item.color} mb-3`}>
                         {item.year}
                       </span>
                       
-                      <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-1">
+                      <h3 className="text-lg font-extrabold text-slate-800 mb-1">
                         {item.degree}
                       </h3>
                       
-                      <h4 className="text-sm font-semibold text-indigo-500 dark:text-indigo-400 mb-4">
+                      <h4 className="text-sm font-extrabold text-indigo-600 mb-4">
                         {item.institution}
                       </h4>
                       
-                      <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 font-medium">
-                        <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                      <div className="flex items-center gap-2 text-sm text-slate-600 font-medium">
+                        <span className="w-1.5 h-1.5 rounded-full bg-cyan-500" />
                         <span>{item.score}</span>
                       </div>
                     </div>

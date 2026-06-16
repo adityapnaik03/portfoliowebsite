@@ -2,67 +2,40 @@ import { motion } from 'framer-motion';
 import { FaJava, FaReact, FaNodeJs, FaGitAlt, FaGithub, FaFigma } from 'react-icons/fa';
 import { SiPython, SiC, SiJavascript, SiHtml5, SiCss3, SiMysql, SiMongodb, SiVisualstudiocode } from 'react-icons/si';
 
-// Helper component for individual skill bars
-function SkillItem({ icon, name, level }) {
-  return (
-    <div className="mb-5">
-      <div className="flex justify-between items-center mb-1.5 px-1">
-        <div className="flex items-center gap-2.5 text-slate-700 dark:text-slate-200">
-          <span className="text-xl text-indigo-500 dark:text-indigo-400">{icon}</span>
-          <span className="font-semibold text-sm">{name}</span>
-        </div>
-        <span className="text-xs font-semibold text-cyan-500 dark:text-cyan-400">{level}%</span>
-      </div>
-      
-      {/* Outer track */}
-      <div className="w-full h-2 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
-        {/* Inner filling progress */}
-        <motion.div
-          initial={{ width: 0 }}
-          whileInView={{ width: `${level}%` }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.2, ease: 'easeOut' }}
-          className="h-full rounded-full bg-gradient-to-r from-cyan-400 via-indigo-500 to-purple-500"
-        />
-      </div>
-    </div>
-  );
-}
-
 export default function Skills() {
   const skillCategories = [
     {
       title: 'Programming Languages',
       skills: [
-        { name: 'Python', level: 85, icon: <SiPython /> },
-        { name: 'Java', level: 80, icon: <FaJava /> },
-        { name: 'C Language', level: 85, icon: <SiC /> },
-        { name: 'JavaScript', level: 80, icon: <SiJavascript /> },
+        { name: 'Python', icon: <SiPython /> },
+        { name: 'Java', icon: <FaJava /> },
+        { name: 'C Language', icon: <SiC /> },
+        { name: 'JavaScript', icon: <SiJavascript /> },
       ],
     },
     {
       title: 'Web Development',
       skills: [
-        { name: 'HTML5', level: 90, icon: <SiHtml5 /> },
-        { name: 'CSS3 / Tailwind', level: 85, icon: <SiCss3 /> },
-        { name: 'React.js', level: 80, icon: <FaReact /> },
-        { name: 'Node.js', level: 70, icon: <FaNodeJs /> },
+        { name: 'HTML5', icon: <SiHtml5 /> },
+        { name: 'CSS3 / Tailwind', icon: <SiCss3 /> },
+        { name: 'React.js', icon: <FaReact /> },
+        { name: 'Node.js', icon: <FaNodeJs /> },
       ],
     },
     {
       title: 'Database Management',
       skills: [
-        { name: 'MySQL', level: 80, icon: <SiMysql /> },
-        { name: 'MongoDB', level: 70, icon: <SiMongodb /> },
+        { name: 'MySQL', icon: <SiMysql /> },
+        { name: 'MongoDB', icon: <SiMongodb /> },
       ],
     },
     {
       title: 'Developer Tools',
       skills: [
-        { name: 'Git', level: 85, icon: <FaGitAlt /> },
-        { name: 'GitHub', level: 90, icon: <FaGithub /> },
-        { name: 'VS Code', level: 95, icon: <SiVisualstudiocode /> },
-        { name: 'Figma', level: 65, icon: <FaFigma /> },
+        { name: 'Git', icon: <FaGitAlt /> },
+        { name: 'GitHub', icon: <FaGithub /> },
+        { name: 'VS Code', icon: <SiVisualstudiocode /> },
+        { name: 'Figma', icon: <FaFigma /> },
       ],
     },
   ];
@@ -88,10 +61,10 @@ export default function Skills() {
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-800 dark:text-white mb-2">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-800 mb-2">
             My <span className="text-gradient">Skills</span>
           </h2>
-          <div className="w-16 h-1 bg-gradient-to-r from-cyan-400 to-indigo-500 mx-auto rounded-full" />
+          <div className="w-16 h-1 bg-gradient-to-r from-cyan-500 to-indigo-600 mx-auto rounded-full" />
         </div>
 
         {/* Categories Grid */}
@@ -106,20 +79,21 @@ export default function Skills() {
             <motion.div
               key={category.title}
               variants={cardVariants}
-              className="p-6 sm:p-8 rounded-2xl glass-card-light dark:glass-card-dark border border-slate-200/20 dark:border-white/10 shadow-lg hover:shadow-neon-indigo/5 transition-shadow duration-300"
+              className="p-6 sm:p-8 rounded-2xl glass-card-light border border-slate-200/50 shadow-md hover:shadow-lg transition-all duration-300"
             >
-              <h3 className="text-lg font-bold text-indigo-500 dark:text-indigo-400 mb-6 border-b border-slate-200/20 dark:border-white/5 pb-3">
+              <h3 className="text-sm font-extrabold text-indigo-600 mb-4 border-b border-slate-200/40 pb-2 uppercase tracking-wider">
                 {category.title}
               </h3>
               
-              <div className="grid grid-cols-1 gap-2">
+              <div className="flex flex-wrap gap-2.5">
                 {category.skills.map((skill) => (
-                  <SkillItem
+                  <span
                     key={skill.name}
-                    icon={skill.icon}
-                    name={skill.name}
-                    level={skill.level}
-                  />
+                    className="px-3.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200/50 text-slate-700 text-xs font-bold border border-slate-200/50 shadow-sm transition-all duration-200 hover:scale-[1.03] flex items-center gap-1.5"
+                  >
+                    <span className="text-sm text-indigo-600">{skill.icon}</span>
+                    <span>{skill.name}</span>
+                  </span>
                 ))}
               </div>
             </motion.div>

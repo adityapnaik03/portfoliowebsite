@@ -10,7 +10,6 @@ export default function Footer() {
     { name: 'Skills', href: '#skills' },
     { name: 'Education', href: '#education' },
     { name: 'Projects', href: '#projects' },
-    { name: 'Certificates', href: '#certificates' },
     { name: 'Contact', href: '#contact' }
   ];
 
@@ -23,7 +22,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="border-t border-slate-200/20 dark:border-white/10 glass-card-light dark:glass-card-dark py-12 relative overflow-hidden bg-transparent z-10">
+    <footer className="border-t border-slate-200 glass-card-light py-12 relative overflow-hidden bg-transparent z-10">
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col items-center gap-8">
         
         {/* Quick Links List */}
@@ -32,7 +31,7 @@ export default function Footer() {
             <a
               key={link.name}
               href={link.href}
-              className="text-sm font-semibold text-slate-500 dark:text-slate-400 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors"
+              className="text-sm font-semibold text-slate-600 hover:text-indigo-600 transition-colors"
             >
               {link.name}
             </a>
@@ -47,7 +46,7 @@ export default function Footer() {
               href={social.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-10 h-10 rounded-full border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-gradient-to-tr hover:from-cyan-500 hover:to-indigo-500 hover:text-white hover:border-transparent transition-all duration-300 shadow-sm"
+              className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center text-slate-600 hover:bg-gradient-to-tr hover:from-cyan-500 hover:to-indigo-600 hover:text-white hover:border-transparent transition-all duration-300 shadow-sm bg-white"
               aria-label={social.name}
             >
               <span className="text-lg">{social.icon}</span>
@@ -56,12 +55,12 @@ export default function Footer() {
         </div>
 
         {/* Divider line */}
-        <div className="w-full max-w-md h-[1px] bg-slate-200/20 dark:bg-white/5" />
+        <div className="w-full max-w-md h-[1px] bg-slate-200" />
 
         {/* Text Details */}
-        <div className="text-center text-xs sm:text-sm text-slate-500 dark:text-slate-400 space-y-1">
+        <div className="text-center text-xs sm:text-sm text-slate-500 space-y-1">
           <p>© {currentYear} Aditya P Naik. All rights reserved.</p>
-          <p className="font-semibold text-slate-600 dark:text-slate-500">
+          <p className="font-semibold text-slate-600">
             Designed & Developed by{' '}
             <span className="text-gradient font-bold">Aditya P Naik</span>
           </p>

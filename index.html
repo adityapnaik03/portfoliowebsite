@@ -136,16 +136,9 @@
           linear-gradient(to bottom, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
       }
 
-      /* Hide default cursor on desktop when CustomCursor is active */
-      @media (min-width: 1024px) {
-        .custom-cursor-active,
-        .custom-cursor-active * {
-          cursor: none !important;
-        }
-      }
     </style>
   </head>
-  <body class="bg-[#030014] text-slate-100 font-sans selection:bg-indigo-500/30 selection:text-indigo-200 antialiased overflow-x-hidden">
+  <body class="bg-[#f8fafc] text-slate-800 font-sans selection:bg-indigo-500/20 selection:text-indigo-900 antialiased overflow-x-hidden">
     <div id="root"></div>
 
     <!-- react code execution -->
@@ -272,83 +265,7 @@
         );
       }
 
-      // ==========================================
-      // INTERACTIVE MOUSE CURSOR (Desktop Only)
-      // ==========================================
-      function CustomCursor() {
-        const [pos, setPos] = useState({ x: 0, y: 0 });
-        const [trail, setTrail] = useState({ x: 0, y: 0 });
-        const [isHover, setIsHover] = useState(false);
-        const [visible, setVisible] = useState(false);
-        const requestRef = useRef(null);
 
-        useEffect(() => {
-          const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-          if (isTouch) return;
-
-          setVisible(true);
-          document.body.classList.add('custom-cursor-active');
-
-          const move = (e) => setPos({ x: e.clientX, y: e.clientY });
-          const leave = () => setVisible(false);
-          const enter = () => setVisible(true);
-
-          window.addEventListener('mousemove', move);
-          document.addEventListener('mouseleave', leave);
-          document.addEventListener('mouseenter', enter);
-
-          const listenHover = () => {
-            document.querySelectorAll('a, button, input, textarea, .hover-glow').forEach(el => {
-              el.addEventListener('mouseenter', () => setIsHover(true));
-              el.addEventListener('mouseleave', () => setIsHover(false));
-            });
-          };
-          listenHover();
-          const interval = setInterval(listenHover, 1500);
-
-          return () => {
-            window.removeEventListener('mousemove', move);
-            document.removeEventListener('mouseleave', leave);
-            document.removeEventListener('mouseenter', enter);
-            document.body.classList.remove('custom-cursor-active');
-            clearInterval(interval);
-          };
-        }, []);
-
-        useEffect(() => {
-          const loop = () => {
-            setTrail(prev => {
-              const dx = pos.x - prev.x;
-              const dy = pos.y - prev.y;
-              return { x: prev.x + dx * 0.15, y: prev.y + dy * 0.15 };
-            });
-            requestRef.current = requestAnimationFrame(loop);
-          };
-          requestRef.current = requestAnimationFrame(loop);
-          return () => cancelAnimationFrame(requestRef.current);
-        }, [pos]);
-
-        if (!visible) return null;
-
-        return (
-          <React.Fragment>
-            <div
-              className="fixed w-2.5 h-2.5 bg-cyan-400 rounded-full pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 mix-blend-difference transition-transform duration-100"
-              style={{ left: `${pos.x}px`, top: `${pos.y}px`, transform: `translate(-50%, -50%) scale(${isHover ? 2.5 : 1})` }}
-            />
-            <div
-              className="fixed w-9 h-9 border border-indigo-400 rounded-full pointer-events-none z-[9998] -translate-x-1/2 -translate-y-1/2 transition-all duration-200"
-              style={{
-                left: `${trail.x}px`,
-                top: `${trail.y}px`,
-                transform: `translate(-50%, -50%) scale(${isHover ? 1.7 : 1})`,
-                borderColor: isHover ? '#a855f7' : 'rgba(99, 102, 241, 0.7)',
-                backgroundColor: isHover ? 'rgba(168, 85, 247, 0.1)' : 'transparent'
-              }}
-            />
-          </React.Fragment>
-        );
-      }
 
       // ==========================================
       // ABOUT ME SCROLL COUNTER
@@ -380,12 +297,12 @@
         }, [endVal]);
 
         return (
-          <div ref={ref} className="p-5 rounded-2xl glass-card-light dark:glass-card-dark flex flex-col items-center shadow-md">
+          <div ref={ref} className="p-5 rounded-2xl glass-card-light border border-slate-200/50 flex flex-col items-center shadow-md hover:translate-y-[-4px] hover:shadow-lg transition-all duration-300">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-400 to-indigo-500 flex items-center justify-center text-white mb-3 shadow-neon-blue">
               {icon}
             </div>
-            <span className="text-2xl font-bold text-slate-800 dark:text-white">{val}{suffix}</span>
-            <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-1">{title}</span>
+            <span className="text-2xl font-bold text-slate-800">{val}{suffix}</span>
+            <span className="text-xs font-bold text-slate-600 mt-1">{title}</span>
           </div>
         );
       }
@@ -459,7 +376,7 @@
       // MAIN APP COMPONENT
       // ==========================================
       function App() {
-        const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'dark');
+        const theme = 'light';
         const [isScrolled, setIsScrolled] = useState(false);
         const [mobileMenu, setMobileMenu] = useState(false);
         const [activeFilter, setActiveFilter] = useState('All');
@@ -474,10 +391,6 @@
         const [errors, setErrors] = useState({});
         const [isSubmitting, setIsSubmitting] = useState(false);
         const [submitStatus, setSubmitStatus] = useState(null);
-
-        // GitHub State
-        const [gitRepos, setGitRepos] = useState([]);
-        const [gitData, setGitData] = useState({ repos: 12, followers: 8, following: 15 });
 
         // Typewriter state
         const titles = ['Web Developer', 'AI Enthusiast', 'Problem Solver', 'Tech Explorer'];
@@ -500,19 +413,13 @@
           return () => clearInterval(interval);
         }, []);
 
-        // Sync theme class
+        // Sync theme class - always light mode
         useEffect(() => {
           const root = document.documentElement;
-          if (theme === 'dark') {
-            root.classList.add('dark');
-            root.classList.remove('light');
-            document.body.style.backgroundColor = '#030014';
-          } else {
-            root.classList.add('light');
-            root.classList.remove('dark');
-            document.body.style.backgroundColor = '#f8fafc';
-          }
-        }, [theme]);
+          root.classList.add('light');
+          root.classList.remove('dark');
+          document.body.style.backgroundColor = '#f8fafc';
+        }, []);
 
         // Scroll listener (navbar background, back to top indicator)
         useEffect(() => {
@@ -554,38 +461,6 @@
 
           return () => clearTimeout(timer);
         }, [typedText, isDeleting, titleIdx, isLoading]);
-
-        // GitHub API fetch fallback
-        useEffect(() => {
-          fetch('https://api.github.com/users/adityapnaik')
-            .then(res => res.json())
-            .then(data => {
-              if (data.public_repos) {
-                setGitData({
-                  repos: data.public_repos,
-                  followers: data.followers,
-                  following: data.following,
-                  avatar_url: data.avatar_url
-                });
-              }
-            }).catch(e => console.log('GitHub Profile fetch limit reached. Using fallback.'));
-
-          fetch('https://api.github.com/users/adityapnaik/repos?sort=updated&per_page=6')
-            .then(res => res.json())
-            .then(data => {
-              if (Array.isArray(data)) {
-                setGitRepos(data.filter(r => !r.fork).slice(0, 4));
-              }
-            }).catch(e => console.log('GitHub Repos fetch limit reached.'));
-        }, []);
-
-        const toggleTheme = () => {
-          setTheme(prev => {
-            const next = prev === 'dark' ? 'light' : 'dark';
-            localStorage.setItem('theme', next);
-            return next;
-          });
-        };
 
         // Form Submit
         const handleFormChange = (e) => {
@@ -635,37 +510,12 @@
         const projects = [
           { title: 'AI Resume Shortlister', description: 'An AI-powered screening solution that extracts key text from resumes, parses skills, and scores candidates based on job description semantic matching.', tags: ['React', 'Node.js', 'Python', 'Flask', 'MongoDB'], image: 'images/project_placeholder.svg', github: 'https://github.com/adityapnaik', demo: '#projects' },
           { title: 'Certificate Verification System', description: 'A tamper-proof credential ledger designed to generate cryptography-secured certificate keys for platforms, ensuring secure verification and authenticity.', tags: ['React', 'Solidity', 'Web3.js', 'Node.js', 'MySQL'], image: 'images/project_placeholder.svg', github: 'https://github.com/adityapnaik', demo: '#projects' },
-          { title: 'Portfolio Website', description: 'A premium developer portfolio featuring custom React physics cursor interactions, drifting backgrounds, glassmorphism layouts, and dark/light modes.', tags: ['React', 'Vite', 'Tailwind CSS', 'Framer Motion'], image: 'images/project_placeholder.svg', github: 'https://github.com/adityapnaik', demo: '#home' },
+          { title: 'Portfolio Website', description: 'A premium developer portfolio featuring smooth particle background animations, clean glassmorphism layouts, and a high-readability light theme.', tags: ['React', 'Vite', 'Tailwind CSS', 'Framer Motion'], image: 'images/project_placeholder.svg', github: 'https://github.com/adityapnaik', demo: '#home' },
           { title: 'Student Management System', description: 'A GUI-driven system utilizing Java Swing and MySQL databases to manage student details, register course selections, score marks, and automate records.', tags: ['Java', 'Swing', 'JDBC', 'MySQL'], image: 'images/project_placeholder.svg', github: 'https://github.com/adityapnaik', demo: '#projects' },
           { title: 'Face Recognition Attendance System', description: 'An automated classroom attendance portal implementing OpenCV Haar Cascade face filters to map face structures and log attendance timestamps.', tags: ['Python', 'OpenCV', 'Deep Learning', 'SQLite'], image: 'images/project_placeholder.svg', github: 'https://github.com/adityapnaik', demo: '#projects' }
         ];
 
-        // Certificate list
-        const certificates = [
-          { id: 1, name: 'Python for Everybody Specialization', platform: 'Coursera', verification: 'https://coursera.org', image: 'images/cert_placeholder.svg' },
-          { id: 2, name: 'Machine Learning Specialization', platform: 'Coursera', verification: 'https://coursera.org', image: 'images/cert_placeholder.svg' },
-          { id: 3, name: 'React - The Complete Guide (with Redux)', platform: 'Udemy', verification: 'https://udemy.com', image: 'images/cert_placeholder.svg' },
-          { id: 4, name: 'Java Programming Foundations', platform: 'Infosys Springboard', verification: 'https://springboard.infosys.com', image: 'images/cert_placeholder.svg' },
-          { id: 5, name: 'Introduction to Internet of Things', platform: 'NPTEL', verification: 'https://nptel.ac.in', image: 'images/cert_placeholder.svg' },
-          { id: 6, name: 'Introduction to Artificial Intelligence', platform: 'Great Learning', verification: 'https://greatlearning.in', image: 'images/cert_placeholder.svg' }
-        ];
 
-        const filteredCerts = activeFilter === 'All'
-          ? certificates
-          : certificates.filter(c => c.platform.toLowerCase() === activeFilter.toLowerCase());
-
-        // GitHub Fallback repositories listing
-        const reposList = gitRepos.length > 0 ? gitRepos : [
-          { name: 'certificate-verifier', description: 'Encrypted Certificate Generation and Verification module using SHA256 hashes.', language: 'JavaScript', stargazers_count: 2, forks_count: 1, html_url: 'https://github.com/adityapnaik' },
-          { name: 'ai-resume-parser', description: 'NLP and semantic keyword matching tool built to rank resumes based on job descriptions.', language: 'Python', stargazers_count: 3, forks_count: 0, html_url: 'https://github.com/adityapnaik' },
-          { name: 'face-recognition-attendance', description: 'Real-time attendance ledger program using OpenCV Haar Cascade filters.', language: 'Python', stargazers_count: 1, forks_count: 0, html_url: 'https://github.com/adityapnaik' },
-          { name: 'portfolio-website', description: 'Premium dark-mode responsive portfolio website constructed using React and Tailwind.', language: 'JavaScript', stargazers_count: 4, forks_count: 0, html_url: 'https://github.com/adityapnaik' }
-        ];
-
-        // Readme statistics widgets src
-        const gitStatsTheme = theme === 'dark' 
-          ? 'transparent&title_color=6366f1&icon_color=06b6d4&text_color=94a3b8&bg_color=00000000&hide_border=true'
-          : 'transparent&title_color=4f46e5&icon_color=a855f7&text_color=475569&bg_color=00000000&hide_border=true';
 
         if (isLoading) {
           return (
@@ -684,8 +534,7 @@
         }
 
         return (
-          <div className="relative w-full overflow-hidden text-slate-700 dark:text-slate-200 bg-background-light dark:bg-[#030014] min-h-screen bg-grid-pattern transition-colors duration-300">
-            <CustomCursor />
+          <div className="relative w-full overflow-hidden text-slate-700 bg-background-light min-h-screen bg-grid-pattern transition-colors duration-300">
             <ParticleBackground theme={theme} />
             
             {/* FLOATING SOCIAL SIDEBAR (Desktop) */}
@@ -698,7 +547,7 @@
                   { name: 'twitter', href: 'https://x.com/adityapnaik' },
                   { name: 'mail', href: 'mailto:adityapnaik@gmail.com' }
                 ].map(s => (
-                  <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer" className="w-9 h-9 flex items-center justify-center rounded-full border border-slate-400/20 dark:border-white/10 bg-[#0a0620]/30 text-slate-400 hover:scale-110 hover:text-cyan-400 transition-all duration-300">
+                  <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer" className="w-9 h-9 flex items-center justify-center rounded-full border border-slate-400/20 bg-white/50 text-slate-500 hover:scale-110 hover:text-indigo-600 shadow-sm transition-all duration-300">
                     <Icon name={s.name} className="w-4.5 h-4.5" />
                   </a>
                 ))}
@@ -710,20 +559,20 @@
             {showBackTop && (
               <button
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                className="fixed bottom-8 right-8 z-50 w-11 h-11 flex items-center justify-center rounded-full glass-card-light dark:glass-card-dark text-cyan-400 border border-slate-200/20 dark:border-white/10 hover:scale-110 shadow-lg transition-transform duration-300"
+                className="fixed bottom-8 right-8 z-50 w-11 h-11 flex items-center justify-center rounded-full glass-card-light text-indigo-600 border border-slate-200/40 hover:scale-110 shadow-lg transition-transform duration-300"
               >
                 <svg className="absolute w-full h-full -rotate-90">
-                  <circle cx="22" cy="22" r="16" stroke="rgba(99, 102, 241, 0.1)" strokeWidth="2" fill="transparent" />
-                  <circle cx="22" cy="22" r="16" stroke="#06b6d4" strokeWidth="2" strokeDasharray={2 * Math.PI * 16} strokeDashoffset={2 * Math.PI * 16 * (1 - scrollProgress / 100)} strokeLinecap="round" fill="transparent" />
+                  <circle cx="22" cy="22" r="16" stroke="rgba(99, 102, 241, 0.15)" strokeWidth="2" fill="transparent" />
+                  <circle cx="22" cy="22" r="16" stroke="#4f46e5" strokeWidth="2" strokeDasharray={2 * Math.PI * 16} strokeDashoffset={2 * Math.PI * 16 * (1 - scrollProgress / 100)} strokeLinecap="round" fill="transparent" />
                 </svg>
-                <Icon name="arrowup" className="w-4 h-4 text-cyan-400" />
+                <Icon name="arrowup" className="w-4 h-4 text-indigo-600" />
               </button>
             )}
 
             {/* NAVBAR */}
-            <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'py-3 dark:glass-nav-dark glass-nav-light shadow-md' : 'py-5 bg-transparent'}`}>
+            <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'py-3 glass-nav-light shadow-md' : 'py-5 bg-transparent'}`}>
               <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
-                <a href="#home" className="text-xl font-extrabold tracking-wider text-slate-800 dark:text-white flex items-center gap-2">
+                <a href="#home" className="text-xl font-extrabold tracking-wider text-slate-800 flex items-center gap-2">
                   <span className="w-8 h-8 rounded-lg bg-gradient-to-tr from-cyan-400 to-indigo-600 flex items-center justify-center text-white font-bold text-base shadow-neon-blue">A</span>
                   <span>ADITYA</span>
                 </a>
@@ -731,24 +580,17 @@
                 {/* Desktop NavLinks */}
                 <div className="hidden lg:flex items-center gap-8">
                   <ul className="flex items-center gap-6">
-                    {['Home', 'About', 'Skills', 'Education', 'Projects', 'Certificates', 'Achievements', 'GitHub', 'Contact'].map(link => (
+                    {['Home', 'About', 'Skills', 'Education', 'Projects', 'Achievements', 'Contact'].map(link => (
                       <li key={link}>
-                        <a href={`#${link.toLowerCase()}`} className="text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300 hover:text-cyan-400 transition-colors">{link}</a>
+                        <a href={`#${link.toLowerCase()}`} className="text-xs font-bold uppercase tracking-wider text-slate-700 hover:text-indigo-600 transition-colors">{link}</a>
                       </li>
                     ))}
                   </ul>
-                  <div className="h-5 w-[1px] bg-slate-400/20 dark:bg-white/10" />
-                  <button onClick={toggleTheme} className="p-2 rounded-full border border-slate-200/20 dark:border-white/10 text-slate-700 dark:text-white glass-card-light dark:glass-card-dark hover:scale-105 active:scale-95 transition-transform">
-                    <Icon name={theme === 'dark' ? 'sun' : 'moon'} className="w-4.5 h-4.5" />
-                  </button>
                 </div>
 
                 {/* Mobile Hamburger toggle */}
                 <div className="lg:hidden flex items-center gap-4">
-                  <button onClick={toggleTheme} className="p-2 rounded-full border border-slate-200/20 dark:border-white/10 text-slate-700 dark:text-white glass-card-light dark:glass-card-dark">
-                    <Icon name={theme === 'dark' ? 'sun' : 'moon'} className="w-4 h-4" />
-                  </button>
-                  <button onClick={() => setMobileMenu(!mobileMenu)} className="p-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-200/30 dark:hover:bg-white/10">
+                  <button onClick={() => setMobileMenu(!mobileMenu)} className="p-2 rounded-lg text-slate-700 hover:bg-slate-200/30">
                     <Icon name={mobileMenu ? 'close' : 'menu'} className="w-5 h-5" />
                   </button>
                 </div>
@@ -756,11 +598,11 @@
 
               {/* Mobile links dropdown */}
               {mobileMenu && (
-                <div className="lg:hidden w-full dark:glass-nav-dark glass-nav-light border-b border-slate-200/20 dark:border-white/10 py-4 shadow-xl">
+                <div className="lg:hidden w-full glass-nav-light border-b border-slate-200/20 py-4 shadow-xl">
                   <ul className="flex flex-col px-6 gap-3">
-                    {['Home', 'About', 'Skills', 'Education', 'Projects', 'Certificates', 'Achievements', 'GitHub', 'Contact'].map(link => (
+                    {['Home', 'About', 'Skills', 'Education', 'Projects', 'Achievements', 'Contact'].map(link => (
                       <li key={link}>
-                        <a href={`#${link.toLowerCase()}`} onClick={() => setMobileMenu(false)} className="block py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-cyan-400">{link}</a>
+                        <a href={`#${link.toLowerCase()}`} onClick={() => setMobileMenu(false)} className="block py-1.5 text-sm font-semibold text-slate-700 hover:text-indigo-600">{link}</a>
                       </li>
                     ))}
                   </ul>
@@ -776,26 +618,26 @@
                 
                 {/* Hero Info */}
                 <div className="lg:col-span-7 flex flex-col justify-center text-left">
-                  <span className="text-cyan-400 font-bold uppercase tracking-widest text-xs mb-3">Welcome to my space</span>
-                  <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-slate-800 dark:text-white leading-tight mb-4">
-                    Hi, I'm <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-indigo-400 to-purple-500">Aditya P Naik</span>
+                  <span className="text-indigo-600 font-bold uppercase tracking-widest text-xs mb-3">Welcome to my space</span>
+                  <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-slate-800 leading-tight mb-4">
+                    Hi, I'm <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-600 via-indigo-600 to-purple-600">Aditya P Naik</span>
                   </h1>
-                  <h2 className="text-lg sm:text-2xl font-semibold text-slate-600 dark:text-slate-200 mb-5 h-8 flex items-center">
+                  <h2 className="text-lg sm:text-2xl font-semibold text-slate-700 mb-5 h-8 flex items-center">
                     <span className="mr-2">I am a</span>
-                    <span className="text-indigo-500 dark:text-indigo-400 border-r-2 border-indigo-400 pr-1 animate-pulse">{typedText}</span>
+                    <span className="text-indigo-600 border-r-2 border-indigo-400 pr-1 animate-pulse">{typedText}</span>
                   </h2>
-                  <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-lg mb-8 leading-relaxed">
+                  <p className="text-sm sm:text-base text-slate-600 max-w-lg mb-8 leading-relaxed">
                     Second-year B.Tech Student in Information Science and Engineering at NMAMIT. Aspiring Software Developer and AI Enthusiast driven by curiosity, developing robust applications, and exploring cutting-edge AI integrations.
                   </p>
                   <div className="flex flex-wrap gap-4 mb-8">
                     <a href="#contact" className="px-6 py-3 rounded-lg font-semibold bg-gradient-to-r from-cyan-500 via-indigo-500 to-purple-600 hover:from-cyan-400 hover:to-purple-500 text-white shadow-lg hover:shadow-neon-blue transition-transform hover:scale-105 duration-300">Contact Me</a>
-                    <a href="resume.pdf" download="Aditya_Naik_Resume.pdf" className="px-6 py-3 rounded-lg font-semibold border border-slate-300 dark:border-white/10 dark:glass-card-dark text-slate-700 dark:text-slate-200 hover:bg-slate-200/30 transition-transform hover:scale-105 duration-300 flex items-center gap-2">Download Resume</a>
+                    <a href="resume.pdf" download="Aditya_Naik_Resume.pdf" className="px-6 py-3 rounded-lg font-semibold border border-slate-300 text-slate-700 hover:bg-slate-100 transition-transform hover:scale-105 duration-300 flex items-center gap-2">Download Resume</a>
                   </div>
                   
                   {/* Social icons on mobile */}
                   <div className="flex items-center gap-4 xl:hidden">
                     {['github', 'linkedin', 'instagram', 'twitter', 'mail'].map(s => (
-                      <a key={s} href={s === 'mail' ? 'mailto:adityapnaik@gmail.com' : `https://${s}.com/adityapnaik`} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full border border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-400 hover:text-cyan-400 transition-colors">
+                      <a key={s} href={s === 'mail' ? 'mailto:adityapnaik@gmail.com' : `https://${s}.com/adityapnaik`} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full border border-slate-200 text-slate-500 hover:text-indigo-600 transition-colors">
                         <Icon name={s} className="w-5 h-5" />
                       </a>
                     ))}
@@ -806,11 +648,11 @@
                 <div className="lg:col-span-5 flex justify-center">
                   <div className="relative w-64 h-64 sm:w-76 sm:h-76 flex items-center justify-center">
                     <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-cyan-400 via-indigo-500 to-purple-600 animate-spin-slow opacity-85" />
-                    <div className="absolute inset-[3px] rounded-full bg-slate-900 z-10" />
+                    <div className="absolute inset-[3px] rounded-full bg-white z-10" />
                     <img
                       src="images/profile.svg"
                       alt="Aditya P Naik"
-                      className="absolute inset-[8px] rounded-full z-20 object-cover w-[calc(100%-16px)] h-[calc(100%-16px)] border-4 border-slate-800 dark:border-slate-900 bg-slate-800"
+                      className="absolute inset-[8px] rounded-full z-20 object-cover w-[calc(100%-16px)] h-[calc(100%-16px)] border-4 border-slate-100 bg-slate-100"
                       onError={(e) => { e.target.onerror = null; e.target.src = 'images/profile.svg'; }}
                     />
                     <div className="absolute -inset-4 rounded-full border border-cyan-500/20 pointer-events-none -z-10 animate-pulse" />
@@ -823,30 +665,30 @@
             <section id="about" className="py-24 relative overflow-hidden bg-transparent z-10">
               <div className="max-w-7xl mx-auto px-6 md:px-12">
                 <div className="text-center mb-16">
-                  <h2 className="text-3xl font-extrabold text-slate-800 dark:text-white mb-2">About <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-indigo-500">Me</span></h2>
-                  <div className="w-16 h-1 bg-gradient-to-r from-cyan-400 to-indigo-500 mx-auto rounded-full" />
+                  <h2 className="text-3xl font-extrabold text-slate-800 mb-2">About <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-indigo-600">Me</span></h2>
+                  <div className="w-16 h-1 bg-gradient-to-r from-cyan-500 to-indigo-600 mx-auto rounded-full" />
                 </div>
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                   
                   {/* Photo details */}
                   <div className="lg:col-span-5 flex justify-center">
-                    <div className="relative group w-68 h-80 sm:w-76 sm:h-92 rounded-2xl overflow-hidden shadow-2xl">
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#030014] to-transparent z-10 opacity-50" />
-                      <img src="images/profile.svg" alt="Aditya Naik" className="w-full h-full object-cover bg-slate-900" />
-                      <div className="absolute top-4 left-4 w-5 h-5 border-t-2 border-l-2 border-cyan-400 z-20" />
-                      <div className="absolute bottom-4 right-4 w-5 h-5 border-b-2 border-r-2 border-purple-500 z-20" />
+                    <div className="relative group w-68 h-80 sm:w-76 sm:h-92 rounded-2xl overflow-hidden shadow-xl border border-slate-200">
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-100/50 to-transparent z-10 opacity-30" />
+                      <img src="images/profile.svg" alt="Aditya Naik" className="w-full h-full object-cover bg-slate-100" />
+                      <div className="absolute top-4 left-4 w-5 h-5 border-t-2 border-l-2 border-cyan-500 z-20" />
+                      <div className="absolute bottom-4 right-4 w-5 h-5 border-b-2 border-r-2 border-indigo-600 z-20" />
                     </div>
                   </div>
 
                   {/* Intro text details */}
                   <div className="lg:col-span-7 text-left">
-                    <h3 className="text-lg sm:text-xl font-bold text-slate-800 dark:text-slate-100 mb-4">
+                    <h3 className="text-lg sm:text-xl font-bold text-slate-800 mb-4">
                       I am Aditya P Naik, a second-year B.Tech Student in Information Science & Engineering.
                     </h3>
-                    <p className="text-sm sm:text-base text-slate-500 dark:text-slate-400 mb-5 leading-relaxed">
+                    <p className="text-sm sm:text-base text-slate-600 mb-5 leading-relaxed">
                       Pursuing education at <strong>NMAM Institute of Technology</strong>, my engineering journey focuses on developing clean software structures, exploring machine learning models, and building interactive web platforms. I enjoy turning complex data flows into simple code designs.
                     </p>
-                    <p className="text-sm sm:text-base text-slate-500 dark:text-slate-400 mb-8 leading-relaxed">
+                    <p className="text-sm sm:text-base text-slate-600 mb-8 leading-relaxed">
                       I'm constantly looking to expand my developer skills. Whether it is scripting Python automations, database configuration, or frontend reactivity, I enjoy learning new technologies and building projects from the ground up.
                     </p>
                     
@@ -866,60 +708,38 @@
             <section id="skills" className="py-24 relative overflow-hidden bg-transparent z-10">
               <div className="max-w-7xl mx-auto px-6 md:px-12">
                 <div className="text-center mb-16">
-                  <h2 className="text-3xl font-extrabold text-slate-800 dark:text-white mb-2">My <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-indigo-500">Skills</span></h2>
-                  <div className="w-16 h-1 bg-gradient-to-r from-cyan-400 to-indigo-500 mx-auto rounded-full" />
+                  <h2 className="text-3xl font-extrabold text-slate-800 mb-2">My <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-indigo-600">Skills</span></h2>
+                  <div className="w-16 h-1 bg-gradient-to-r from-cyan-500 to-indigo-600 mx-auto rounded-full" />
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   {[
                     {
                       category: 'Programming Languages',
-                      skills: [
-                        { name: 'Python', level: 85 },
-                        { name: 'Java', level: 80 },
-                        { name: 'C Language', level: 85 },
-                        { name: 'JavaScript', level: 80 }
-                      ]
+                      skills: ['Python', 'Java', 'C Language', 'JavaScript']
                     },
                     {
                       category: 'Web Development',
-                      skills: [
-                        { name: 'HTML5', level: 90 },
-                        { name: 'CSS3 / Tailwind', level: 85 },
-                        { name: 'React.js', level: 80 },
-                        { name: 'Node.js', level: 70 }
-                      ]
+                      skills: ['HTML5', 'CSS3 / Tailwind', 'React.js', 'Node.js']
                     },
                     {
                       category: 'Database Management',
-                      skills: [
-                        { name: 'MySQL', level: 80 },
-                        { name: 'MongoDB', level: 70 }
-                      ]
+                      skills: ['MySQL', 'MongoDB']
                     },
                     {
                       category: 'Developer Tools',
-                      skills: [
-                        { name: 'Git', level: 85 },
-                        { name: 'GitHub', level: 90 },
-                        { name: 'VS Code', level: 95 },
-                        { name: 'Figma', level: 65 }
-                      ]
+                      skills: ['Git', 'GitHub', 'VS Code', 'Figma']
                     }
                   ].map(cat => (
-                    <div key={cat.category} className="p-6 rounded-2xl glass-card-light dark:glass-card-dark text-left shadow-lg">
-                      <h3 className="text-md font-bold text-indigo-500 dark:text-indigo-400 mb-5 border-b border-slate-200/20 dark:border-white/5 pb-2">{cat.category}</h3>
-                      {cat.skills.map(s => (
-                        <div key={s.name} className="mb-4">
-                          <div className="flex justify-between items-center mb-1 text-xs font-semibold text-slate-600 dark:text-slate-300">
-                            <span>{s.name}</span>
-                            <span className="text-cyan-400">{s.level}%</span>
-                          </div>
-                          <div className="w-full h-1.5 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
-                            <div className="h-full bg-gradient-to-r from-cyan-400 to-indigo-500 rounded-full" style={{ width: `${s.level}%`, transition: 'width 1.5s ease-out' }} />
-                          </div>
-                        </div>
-                      ))}
+                    <div key={cat.category} className="p-6 rounded-2xl glass-card-light text-left shadow-lg border border-slate-200/50">
+                      <h3 className="text-sm font-extrabold text-indigo-600 mb-4 border-b border-slate-200/40 pb-2 uppercase tracking-wider">{cat.category}</h3>
+                      <div className="flex flex-wrap gap-2.5">
+                        {cat.skills.map(skill => (
+                          <span key={skill} className="px-3.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200/50 text-slate-700 text-xs font-semibold border border-slate-200/50 shadow-sm transition-all duration-200 hover:scale-[1.03]">
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -930,8 +750,8 @@
             <section id="education" className="py-24 relative overflow-hidden bg-transparent z-10">
               <div className="max-w-7xl mx-auto px-6 md:px-12">
                 <div className="text-center mb-16">
-                  <h2 className="text-3xl font-extrabold text-slate-800 dark:text-white mb-2">Education <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-indigo-500">Timeline</span></h2>
-                  <div className="w-16 h-1 bg-gradient-to-r from-cyan-400 to-indigo-500 mx-auto rounded-full" />
+                  <h2 className="text-3xl font-extrabold text-slate-800 mb-2">Education <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-indigo-600">Timeline</span></h2>
+                  <div className="w-16 h-1 bg-gradient-to-r from-cyan-500 to-indigo-600 mx-auto rounded-full" />
                 </div>
 
                 <div className="relative max-w-3xl mx-auto">
@@ -939,24 +759,24 @@
                   
                   <div className="space-y-12">
                     {[
-                      { degree: 'B.Tech in Information Science & Engineering (ISE)', institution: 'NMAM Institute Of Technology (NMAMIT)', year: '2024 - 2028', score: 'Pursuing (Second-year)', icon: 'graduation', grad: 'from-cyan-400 to-blue-500' },
-                      { degree: 'Pre-University Course (PCMB)', institution: 'Excellent PU College, Moodbidri', year: '2022 - 2024', score: 'Percentage: 91.3%', icon: 'code', grad: 'from-indigo-400 to-purple-500' },
-                      { degree: 'Secondary School Leaving Certificate (SSLC)', institution: "St. Cecily's High School, Udupi", year: 'Graduated 2022', score: 'Percentage: 86.06%', icon: 'users', grad: 'from-purple-400 to-pink-500' }
+                      { degree: 'B.Tech in Information Science & Engineering (ISE)', institution: 'NMAM Institute Of Technology (NMAMIT)', year: '2024 - 2028', score: 'Pursuing (Second-year)', icon: 'graduation', grad: 'from-cyan-500 to-indigo-600' },
+                      { degree: 'Pre-University Course (PCMB)', institution: 'Excellent PU College, Moodbidri', year: '2022 - 2024', score: 'Percentage: 91.3%', icon: 'code', grad: 'from-indigo-500 to-purple-600' },
+                      { degree: 'Secondary School Leaving Certificate (SSLC)', institution: "St. Cecily's High School, Udupi", year: 'Graduated 2022', score: 'Percentage: 86.06%', icon: 'users', grad: 'from-purple-500 to-pink-500' }
                     ].map((item, idx) => {
                       const isEven = idx % 2 === 0;
                       return (
                         <div key={item.degree} className={`flex flex-col sm:flex-row items-start sm:items-center relative ${isEven ? 'sm:flex-row-reverse' : ''}`}>
-                          <div className="absolute left-4 sm:left-1/2 transform -translate-x-1/2 w-8 h-8 rounded-full bg-slate-900 border-2 border-indigo-500 flex items-center justify-center text-indigo-400 z-20 shadow-neon-indigo">
-                            <Icon name={item.icon} className="w-4 h-4 text-cyan-400" />
+                          <div className="absolute left-4 sm:left-1/2 transform -translate-x-1/2 w-8 h-8 rounded-full bg-slate-100 border-2 border-indigo-600 flex items-center justify-center text-indigo-600 z-20 shadow-sm">
+                            <Icon name={item.icon} className="w-4 h-4 text-indigo-600" />
                           </div>
                           <div className="hidden sm:block w-1/2" />
                           <div className={`w-full sm:w-[calc(50%-2rem)] pl-12 sm:pl-0 ${isEven ? 'sm:pr-6 text-left' : 'sm:pl-6 text-left'}`}>
-                            <div className="p-6 rounded-2xl glass-card-light dark:glass-card-dark border border-slate-200/20 dark:border-white/10 shadow-lg hover:translate-y-[-4px] transition-transform duration-300">
+                            <div className="p-6 rounded-2xl glass-card-light border border-slate-200/50 shadow-md hover:translate-y-[-4px] transition-transform duration-300">
                               <span className={`inline-block px-3 py-0.5 text-xs font-bold text-white rounded-full bg-gradient-to-r ${item.grad} mb-2`}>{item.year}</span>
-                              <h3 className="text-base font-bold text-slate-800 dark:text-white mb-1">{item.degree}</h3>
-                              <h4 className="text-xs font-semibold text-indigo-400 mb-3">{item.institution}</h4>
-                              <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400">
-                                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                              <h3 className="text-base font-extrabold text-slate-800 mb-1">{item.degree}</h3>
+                              <h4 className="text-xs font-extrabold text-indigo-600 mb-3">{item.institution}</h4>
+                              <div className="flex items-center gap-1.5 text-xs text-slate-600">
+                                <span className="w-1.5 h-1.5 rounded-full bg-cyan-500" />
                                 <span>{item.score}</span>
                               </div>
                             </div>
@@ -973,8 +793,8 @@
             <section id="projects" className="py-24 relative overflow-hidden bg-transparent z-10">
               <div className="max-w-7xl mx-auto px-6 md:px-12">
                 <div className="text-center mb-16">
-                  <h2 className="text-3xl font-extrabold text-slate-800 dark:text-white mb-2">My <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-indigo-500">Projects</span></h2>
-                  <div className="w-16 h-1 bg-gradient-to-r from-cyan-400 to-indigo-500 mx-auto rounded-full" />
+                  <h2 className="text-3xl font-extrabold text-slate-800 mb-2">My <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-indigo-600">Projects</span></h2>
+                  <div className="w-16 h-1 bg-gradient-to-r from-cyan-500 to-indigo-600 mx-auto rounded-full" />
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -985,155 +805,31 @@
               </div>
             </section>
 
-            {/* CERTIFICATIONS SECTION */}
-            <section id="certificates" className="py-24 relative overflow-hidden bg-transparent z-10">
-              <div className="max-w-7xl mx-auto px-6 md:px-12">
-                <div className="text-center mb-16">
-                  <h2 className="text-3xl font-extrabold text-slate-800 dark:text-white mb-2">My <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-indigo-500">Certifications</span></h2>
-                  <div className="w-16 h-1 bg-gradient-to-r from-cyan-400 to-indigo-500 mx-auto rounded-full" />
-                </div>
-
-                {/* Filter Navigation */}
-                <div className="flex flex-wrap justify-center items-center gap-2 mb-10 max-w-2xl mx-auto">
-                  {['All', 'Coursera', 'Udemy', 'NPTEL', 'Infosys Springboard', 'Great Learning'].map(p => (
-                    <button
-                      key={p}
-                      onClick={() => setActiveFilter(p)}
-                      className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 ${activeFilter === p ? 'bg-gradient-to-r from-cyan-500 to-indigo-600 text-white shadow-md' : 'border border-slate-300 dark:border-white/10 dark:glass-card-dark text-slate-600 dark:text-slate-300 hover:bg-slate-200/50'}`}
-                    >
-                      {p}
-                    </button>
-                  ))}
-                </div>
-
-                {/* Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {filteredCerts.map(cert => (
-                    <div key={cert.id} className="p-4 rounded-2xl glass-card-light dark:glass-card-dark border border-slate-200/20 dark:border-white/10 shadow-lg text-left hover:translate-y-[-4px] transition-transform">
-                      <div className="rounded-xl overflow-hidden mb-4 bg-slate-900 border border-slate-200/10">
-                        <img
-                          src={cert.image}
-                          alt={cert.name}
-                          className="w-full h-auto object-cover opacity-90"
-                          onError={(e) => { e.target.onerror = null; e.target.src = 'images/cert_placeholder.svg'; }}
-                        />
-                      </div>
-                      <span className="inline-block px-2 py-0.5 mb-2.5 text-[10px] font-bold text-cyan-400 rounded-full bg-cyan-400/10">{cert.platform}</span>
-                      <h3 className="text-sm font-bold text-slate-800 dark:text-white mb-4 line-clamp-2 h-10">{cert.name}</h3>
-                      <a href={cert.verification} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs font-bold text-indigo-400 hover:text-cyan-400 transition-colors">
-                        <span>Verify Credential</span>
-                        <Icon name="external" className="w-3 h-3" />
-                      </a>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </section>
-
             {/* ACHIEVEMENTS SECTION */}
             <section id="achievements" className="py-24 relative overflow-hidden bg-transparent z-10">
               <div className="max-w-7xl mx-auto px-6 md:px-12">
                 <div className="text-center mb-16">
-                  <h2 className="text-3xl font-extrabold text-slate-800 dark:text-white mb-2">Achievements & <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-indigo-500">Activities</span></h2>
-                  <div className="w-16 h-1 bg-gradient-to-r from-cyan-400 to-indigo-500 mx-auto rounded-full" />
+                  <h2 className="text-3xl font-extrabold text-slate-800 mb-2">Achievements & <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-indigo-600">Activities</span></h2>
+                  <div className="w-16 h-1 bg-gradient-to-r from-cyan-500 to-indigo-600 mx-auto rounded-full" />
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {[
-                    { category: 'Hackathons', title: 'College Hackathon Runner Up', description: 'Secured 2nd Place in NMAMIT Annual Hackathon for designing a cryptography-based Certificate Verification ledger.', icon: 'trophy', grad: 'from-cyan-400 to-indigo-500' },
-                    { category: 'Competitions', title: 'LeetCode DSA Solver', description: 'Solved over 250+ DSA algorithmic issues on LeetCode with active ranking progress in monthly programming challenges.', icon: 'code', grad: 'from-indigo-400 to-purple-500' },
-                    { category: 'Workshops', title: 'Generative AI & Deep Learning', description: 'Successfully participated in a hands-on technical workshop on Pytorch Neural Networks and LLM fine-tuning techniques.', icon: 'graduation', grad: 'from-purple-400 to-pink-500' },
-                    { category: 'Leadership', title: 'ISE Association Organizer', description: 'Active organizing committee member for the ISE Department, coordinating technical quizzes, coding fests, and workshops.', icon: 'users', grad: 'from-pink-400 to-rose-500' },
-                    { category: 'Awards', title: 'Subject Excellence Award', description: 'Awarded department merit rank recognition certificate for outstanding technical score in C and Object-Oriented Java.', icon: 'award', grad: 'from-amber-400 to-orange-500' }
+                    { category: 'Hackathons', title: 'College Hackathon Runner Up', description: 'Secured 2nd Place in NMAMIT Annual Hackathon for designing a cryptography-based Certificate Verification ledger.', icon: 'trophy', grad: 'from-cyan-500 to-indigo-600' },
+                    { category: 'Competitions', title: 'LeetCode DSA Solver', description: 'Solved over 250+ DSA algorithmic issues on LeetCode with active ranking progress in monthly programming challenges.', icon: 'code', grad: 'from-indigo-500 to-purple-600' },
+                    { category: 'Workshops', title: 'Generative AI & Deep Learning', description: 'Successfully participated in a hands-on technical workshop on Pytorch Neural Networks and LLM fine-tuning techniques.', icon: 'graduation', grad: 'from-purple-500 to-pink-500' },
+                    { category: 'Leadership', title: 'ISE Association Organizer', description: 'Active organizing committee member for the ISE Department, coordinating technical quizzes, coding fests, and workshops.', icon: 'users', grad: 'from-pink-500 to-rose-500' },
+                    { category: 'Awards', title: 'Subject Excellence Award', description: 'Awarded department merit rank recognition certificate for outstanding technical score in C and Object-Oriented Java.', icon: 'award', grad: 'from-amber-500 to-orange-600' }
                   ].map((item, index) => (
-                    <div key={index} className="p-6 rounded-2xl glass-card-light dark:glass-card-dark text-left shadow-lg hover:translate-y-[-4px] transition-transform">
+                    <div key={index} className="p-6 rounded-2xl glass-card-light border border-slate-200/50 text-left shadow-md hover:translate-y-[-4px] transition-all duration-300">
                       <div className={`w-10 h-10 rounded-xl bg-gradient-to-tr ${item.grad} flex items-center justify-center text-white mb-5 shadow-sm`}>
                         <Icon name={item.icon} className="w-5 h-5 text-white" />
                       </div>
-                      <span className="text-[10px] font-bold tracking-widest text-indigo-400 uppercase mb-1.5 block">{item.category}</span>
-                      <h3 className="text-base font-bold text-slate-800 dark:text-white mb-2">{item.title}</h3>
-                      <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed">{item.description}</p>
+                      <span className="text-[10px] font-extrabold tracking-widest text-indigo-600 uppercase mb-1.5 block">{item.category}</span>
+                      <h3 className="text-base font-extrabold text-slate-800 mb-2">{item.title}</h3>
+                      <p className="text-xs sm:text-sm text-slate-650 leading-relaxed">{item.description}</p>
                     </div>
                   ))}
-                </div>
-              </div>
-            </section>
-
-            {/* GITHUB STATISTICS SECTION */}
-            <section id="github" className="py-24 relative overflow-hidden bg-transparent z-10">
-              <div className="max-w-7xl mx-auto px-6 md:px-12">
-                <div className="text-center mb-16">
-                  <h2 className="text-3xl font-extrabold text-slate-800 dark:text-white mb-2">GitHub <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-indigo-500">Statistics</span></h2>
-                  <div className="w-16 h-1 bg-gradient-to-r from-cyan-400 to-indigo-500 mx-auto rounded-full" />
-                </div>
-
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch mb-10">
-                  {/* Left profile info */}
-                  <div className="lg:col-span-5 p-6 rounded-2xl glass-card-light dark:glass-card-dark flex flex-col justify-between shadow-lg text-left">
-                    <div className="flex items-center gap-4 mb-6">
-                      <img src={gitData.avatar_url || 'images/profile.svg'} alt="GitHub Avatar" className="w-14 h-14 rounded-full border-2 border-indigo-500 bg-slate-850" onError={(e) => { e.target.onerror = null; e.target.src = 'images/profile.svg'; }} />
-                      <div>
-                        <h3 className="text-base font-bold text-slate-800 dark:text-white">Aditya P Naik</h3>
-                        <a href="https://github.com/adityapnaik" target="_blank" rel="noopener noreferrer" className="text-xs font-bold text-cyan-400 flex items-center gap-1 hover:underline">
-                          <Icon name="github" className="w-3.5 h-3.5" />
-                          <span>@adityapnaik</span>
-                        </a>
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-3 gap-3 text-center mb-6">
-                      <div className="p-3 rounded-xl bg-slate-500/5 border border-slate-200/10">
-                        <span className="block text-xl font-bold text-indigo-400">{gitData.repos}</span>
-                        <span className="text-[9px] font-bold text-slate-500 uppercase">Repos</span>
-                      </div>
-                      <div className="p-3 rounded-xl bg-slate-500/5 border border-slate-200/10">
-                        <span className="block text-xl font-bold text-cyan-400">{gitData.followers}</span>
-                        <span className="text-[9px] font-bold text-slate-500 uppercase">Followers</span>
-                      </div>
-                      <div className="p-3 rounded-xl bg-slate-500/5 border border-slate-200/10">
-                        <span className="block text-xl font-bold text-purple-400">{gitData.following}</span>
-                        <span className="text-[9px] font-bold text-slate-500 uppercase">Following</span>
-                      </div>
-                    </div>
-
-                    <a href="https://github.com/adityapnaik" target="_blank" rel="noopener noreferrer" className="py-2.5 rounded-xl bg-slate-900 text-white text-xs font-semibold text-center border border-white/5 hover:bg-neutral-800 transition-colors flex items-center justify-center gap-1.5">
-                      <Icon name="github" className="w-4 h-4" />
-                      <span>Visit GitHub Profile</span>
-                    </a>
-                  </div>
-
-                  {/* Right Charts */}
-                  <div className="lg:col-span-7 flex flex-col sm:flex-row gap-6 items-stretch">
-                    <div className="flex-1 p-6 rounded-2xl glass-card-light dark:glass-card-dark border border-slate-200/20 dark:border-white/10 shadow-lg flex items-center justify-center">
-                      <img src={`https://github-readme-stats.vercel.app/api?username=adityapnaik&show_icons=true&theme=${gitStatsTheme}`} alt="GitHub stats chart" className="max-w-full h-auto" onError={(e) => { e.target.style.display = 'none'; }} />
-                    </div>
-                    <div className="flex-1 p-6 rounded-2xl glass-card-light dark:glass-card-dark border border-slate-200/20 dark:border-white/10 shadow-lg flex items-center justify-center">
-                      <img src={`https://github-readme-stats.vercel.app/api/top-langs/?username=adityapnaik&layout=compact&theme=${gitStatsTheme}`} alt="GitHub languages chart" className="max-w-full h-auto" onError={(e) => { e.target.style.display = 'none'; }} />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Repos details */}
-                <div className="text-left">
-                  <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200 mb-6 flex items-center gap-1.5">
-                    <Icon name="code" className="w-4 h-4 text-indigo-500" />
-                    <span>Featured Repositories</span>
-                  </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {reposList.map((r, i) => (
-                      <a key={i} href={r.html_url} target="_blank" rel="noopener noreferrer" className="p-5 rounded-xl glass-card-light dark:glass-card-dark border border-slate-200/10 shadow-md hover:translate-y-[-2px] transition-transform block">
-                        <div className="flex justify-between items-start mb-2">
-                          <h4 className="font-bold text-sm text-slate-800 dark:text-white hover:text-cyan-400">{r.name}</h4>
-                          {r.language && <span className="text-[9px] font-bold text-indigo-400 px-2 py-0.5 rounded-full bg-indigo-400/10">{r.language}</span>}
-                        </div>
-                        <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 h-8 line-clamp-2 leading-relaxed">{r.description || 'No description provided.'}</p>
-                        <div className="flex gap-4 text-[10px] text-slate-500 font-bold">
-                          <span className="flex items-center gap-1 hover:text-yellow-400"><Icon name="star" className="w-3 h-3 text-yellow-400" />{r.stargazers_count}</span>
-                          <span className="flex items-center gap-1 hover:text-cyan-400"><Icon name="fork" className="w-3 h-3 text-cyan-400" />{r.forks_count}</span>
-                        </div>
-                      </a>
-                    ))}
-                  </div>
                 </div>
               </div>
             </section>
@@ -1142,15 +838,15 @@
             <section id="contact" className="py-24 relative overflow-hidden bg-transparent z-10">
               <div className="max-w-7xl mx-auto px-6 md:px-12">
                 <div className="text-center mb-16">
-                  <h2 className="text-3xl font-extrabold text-slate-800 dark:text-white mb-2">Get In <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-indigo-500">Touch</span></h2>
-                  <div className="w-16 h-1 bg-gradient-to-r from-cyan-400 to-indigo-500 mx-auto rounded-full" />
+                  <h2 className="text-3xl font-extrabold text-slate-800 mb-2">Get In <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-indigo-600">Touch</span></h2>
+                  <div className="w-16 h-1 bg-gradient-to-r from-cyan-500 to-indigo-600 mx-auto rounded-full" />
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 max-w-4xl mx-auto">
                   {/* Info */}
                   <div className="lg:col-span-5 flex flex-col gap-5 justify-center text-left">
-                    <h3 className="text-lg font-bold text-slate-800 dark:text-white">Contact Details</h3>
-                    <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
+                    <h3 className="text-lg font-extrabold text-slate-800">Contact Details</h3>
+                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4">
                       Have an exciting project, a role opening, or just want to chat about programming? Drop me a line! I will get back to you as soon as possible.
                     </p>
                     
@@ -1160,11 +856,11 @@
                         { name: 'Email', value: 'adityapnaik@gmail.com', icon: 'mail', href: 'mailto:adityapnaik@gmail.com' },
                         { name: 'Location', value: 'Udupi / Nitte, Karnataka, India', icon: 'map', href: 'https://maps.google.com/?q=NMAM+Institute+of+Technology' }
                       ].map(info => (
-                        <a key={info.name} href={info.href} className="flex items-center gap-3 p-4 rounded-xl glass-card-light dark:glass-card-dark border border-slate-200/10 hover:translate-y-[-2px] transition-transform block">
-                          <div className="w-8 h-8 rounded-lg bg-slate-500/5 flex items-center justify-center text-indigo-400"><Icon name={info.icon} className="w-4 h-4 text-cyan-400" /></div>
+                        <a key={info.name} href={info.href} className="flex items-center gap-3 p-4 rounded-xl glass-card-light border border-slate-200/50 hover:translate-y-[-2px] transition-transform block">
+                          <div className="w-8 h-8 rounded-lg bg-indigo-50 flex items-center justify-center text-indigo-600"><Icon name={info.icon} className="w-4 h-4 text-white" /></div>
                           <div>
-                            <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider">{info.name}</span>
-                            <span className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200">{info.value}</span>
+                            <span className="block text-[10px] font-extrabold text-slate-500 uppercase tracking-wider">{info.name}</span>
+                            <span className="text-xs sm:text-sm font-bold text-slate-800">{info.value}</span>
                           </div>
                         </a>
                       ))}
@@ -1173,27 +869,27 @@
 
                   {/* Form */}
                   <div className="lg:col-span-7">
-                    <form onSubmit={handleSubmitContact} className="p-6 rounded-2xl glass-card-light dark:glass-card-dark border border-slate-200/10 shadow-xl relative text-left">
+                    <form onSubmit={handleSubmitContact} className="p-6 rounded-2xl glass-card-light border border-slate-200/50 shadow-xl relative text-left">
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                         <div>
-                          <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Name</label>
-                          <input type="text" name="name" value={contactForm.name} onChange={handleFormChange} className={`w-full px-3 py-2 rounded-lg bg-slate-500/5 border text-xs text-slate-700 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 ${errors.name ? 'border-red-500' : 'border-slate-200/10'}`} placeholder="John Doe" />
+                          <label className="block text-[10px] font-extrabold text-slate-600 uppercase tracking-wider mb-1">Name</label>
+                          <input type="text" name="name" value={contactForm.name} onChange={handleFormChange} className={`w-full px-3 py-2 rounded-lg bg-white border text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 ${errors.name ? 'border-red-500' : 'border-slate-300'}`} placeholder="John Doe" />
                           {errors.name && <span className="text-[10px] text-red-500 mt-0.5 block">{errors.name}</span>}
                         </div>
                         <div>
-                          <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Email</label>
-                          <input type="email" name="email" value={contactForm.email} onChange={handleFormChange} className={`w-full px-3 py-2 rounded-lg bg-slate-500/5 border text-xs text-slate-700 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 ${errors.email ? 'border-red-500' : 'border-slate-200/10'}`} placeholder="john@example.com" />
+                          <label className="block text-[10px] font-extrabold text-slate-600 uppercase tracking-wider mb-1">Email</label>
+                          <input type="email" name="email" value={contactForm.email} onChange={handleFormChange} className={`w-full px-3 py-2 rounded-lg bg-white border text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 ${errors.email ? 'border-red-500' : 'border-slate-300'}`} placeholder="john@example.com" />
                           {errors.email && <span className="text-[10px] text-red-500 mt-0.5 block">{errors.email}</span>}
                         </div>
                       </div>
                       <div className="mb-4">
-                        <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Subject</label>
-                        <input type="text" name="subject" value={contactForm.subject} onChange={handleFormChange} className={`w-full px-3 py-2 rounded-lg bg-slate-500/5 border text-xs text-slate-700 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 ${errors.subject ? 'border-red-500' : 'border-slate-200/10'}`} placeholder="Subject info" />
+                        <label className="block text-[10px] font-extrabold text-slate-600 uppercase tracking-wider mb-1">Subject</label>
+                        <input type="text" name="subject" value={contactForm.subject} onChange={handleFormChange} className={`w-full px-3 py-2 rounded-lg bg-white border text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 ${errors.subject ? 'border-red-500' : 'border-slate-300'}`} placeholder="Subject info" />
                         {errors.subject && <span className="text-[10px] text-red-500 mt-0.5 block">{errors.subject}</span>}
                       </div>
                       <div className="mb-4">
-                        <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Message</label>
-                        <textarea name="message" rows="4" value={contactForm.message} onChange={handleFormChange} className={`w-full px-3 py-2 rounded-lg bg-slate-500/5 border text-xs text-slate-700 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 ${errors.message ? 'border-red-500' : 'border-slate-200/10'}`} placeholder="Write message..." />
+                        <label className="block text-[10px] font-extrabold text-slate-600 uppercase tracking-wider mb-1">Message</label>
+                        <textarea name="message" rows="4" value={contactForm.message} onChange={handleFormChange} className={`w-full px-3 py-2 rounded-lg bg-white border text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 ${errors.message ? 'border-red-500' : 'border-slate-300'}`} placeholder="Write message..." />
                         {errors.message && <span className="text-[10px] text-red-500 mt-0.5 block">{errors.message}</span>}
                       </div>
                       <button type="submit" disabled={isSubmitting} className="w-full py-2.5 rounded-lg bg-gradient-to-r from-cyan-500 to-indigo-600 text-white text-xs font-bold shadow-md hover:shadow-neon-blue flex items-center justify-center gap-1 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 transition-all cursor-pointer">
@@ -1202,10 +898,10 @@
 
                       {/* Success banner */}
                       {submitStatus === 'success' && (
-                        <div className="absolute inset-0 bg-[#0a0620]/95 rounded-2xl flex flex-col items-center justify-center p-6 text-center z-20">
-                          <Icon name="award" className="w-12 h-12 text-green-400 mb-3 animate-bounce" />
-                          <h4 className="text-lg font-bold text-white mb-1">Message Sent!</h4>
-                          <p className="text-[11px] text-slate-400 max-w-xs">Thank you for reaching out, Aditya will respond shortly!</p>
+                        <div className="absolute inset-0 bg-white/95 rounded-2xl flex flex-col items-center justify-center p-6 text-center z-20">
+                          <Icon name="award" className="w-12 h-12 text-green-500 mb-3 animate-bounce" />
+                          <h4 className="text-lg font-bold text-slate-800 mb-1">Message Sent!</h4>
+                          <p className="text-[11px] text-slate-500 max-w-xs">Thank you for reaching out, Aditya will respond shortly!</p>
                         </div>
                       )}
                     </form>
@@ -1215,11 +911,11 @@
             </section>
 
             {/* FOOTER */}
-            <footer className="border-t border-slate-200/20 dark:border-white/10 glass-card-light dark:glass-card-dark py-10 relative overflow-hidden bg-transparent z-10">
+            <footer className="border-t border-slate-200/50 glass-card-light py-10 relative overflow-hidden bg-transparent z-10">
               <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col items-center gap-6">
-                <div className="flex flex-wrap justify-center gap-4 text-xs font-semibold text-slate-500">
-                  {['Home', 'About', 'Skills', 'Education', 'Projects', 'Certificates', 'Contact'].map(link => (
-                    <a key={link} href={`#${link.toLowerCase()}`} className="hover:text-cyan-400">{link}</a>
+                <div className="flex flex-wrap justify-center gap-4 text-xs font-semibold text-slate-600">
+                  {['Home', 'About', 'Skills', 'Education', 'Projects', 'Achievements', 'Contact'].map(link => (
+                    <a key={link} href={`#${link.toLowerCase()}`} className="hover:text-indigo-600">{link}</a>
                   ))}
                 </div>
                 <div className="flex items-center gap-4">
@@ -1229,16 +925,16 @@
                     { name: 'instagram', href: 'https://instagram.com/aditya.p.naik' },
                     { name: 'twitter', href: 'https://x.com/adityapnaik' }
                   ].map(s => (
-                    <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-500 hover:bg-gradient-to-tr hover:from-cyan-500 hover:to-indigo-500 hover:text-white hover:border-transparent transition-all duration-300">
+                    <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center text-slate-500 hover:bg-indigo-600 hover:text-white hover:border-transparent transition-all duration-300">
                       <Icon name={s.name} className="w-4 h-4" />
                     </a>
                   ))}
                 </div>
-                <div className="w-full max-w-sm h-[1px] bg-slate-200/20 dark:bg-white/5" />
+                <div className="w-full max-w-sm h-[1px] bg-slate-200/30" />
                 <div className="text-center text-xs text-slate-500">
                   <p>© {new Date().getFullYear()} Aditya P Naik. All rights reserved.</p>
-                  <p className="font-semibold text-slate-600 dark:text-slate-500 mt-0.5">
-                    Designed & Developed by <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-indigo-500 font-bold">Aditya P Naik</span>
+                  <p className="font-semibold text-slate-600 mt-0.5">
+                    Designed & Developed by <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-indigo-600 font-bold">Aditya P Naik</span>
                   </p>
                 </div>
               </div>

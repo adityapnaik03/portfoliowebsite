@@ -42,10 +42,10 @@ function ProjectCard({ project }) {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={tiltStyle}
-      className="rounded-2xl glass-card-light dark:glass-card-dark border border-slate-200/20 dark:border-white/10 overflow-hidden shadow-xl hover:shadow-neon-blue/10 flex flex-col h-full select-none"
+      className="rounded-2xl glass-card-light border border-slate-200/50 overflow-hidden shadow-md hover:shadow-lg flex flex-col h-full select-none transition-shadow duration-300"
     >
       {/* Project Thumbnail Image */}
-      <div className="relative h-48 w-full overflow-hidden bg-slate-900">
+      <div className="relative h-48 w-full overflow-hidden bg-slate-100">
         <img
           src={project.image}
           alt={project.title}
@@ -56,16 +56,16 @@ function ProjectCard({ project }) {
           }}
         />
         {/* Absolute Glowing Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0620] via-transparent to-transparent opacity-80 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-100/30 via-transparent to-transparent opacity-80 pointer-events-none" />
       </div>
 
       {/* Details Container */}
       <div className="p-6 flex flex-col flex-grow">
-        <h3 className="text-xl font-bold text-slate-800 dark:text-white mb-2">
+        <h3 className="text-lg font-extrabold text-slate-800 mb-2">
           {project.title}
         </h3>
         
-        <p className="text-sm text-slate-600 dark:text-slate-400 mb-5 leading-relaxed flex-grow">
+        <p className="text-sm text-slate-600 mb-5 leading-relaxed flex-grow">
           {project.description}
         </p>
 
@@ -74,7 +74,7 @@ function ProjectCard({ project }) {
           {project.tags.map((tag) => (
             <span
               key={tag}
-              className="text-[10px] sm:text-xs font-bold text-indigo-500 dark:text-indigo-400 px-2.5 py-0.5 rounded-full bg-indigo-500/10 dark:bg-indigo-500/15"
+              className="text-[10px] sm:text-xs font-bold text-indigo-600 px-2.5 py-0.5 rounded-full bg-indigo-500/5"
             >
               {tag}
             </span>
@@ -87,7 +87,7 @@ function ProjectCard({ project }) {
             href={project.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 flex items-center justify-center gap-2 px-4 py-2 text-xs font-semibold rounded-lg border border-slate-300 dark:border-white/10 dark:glass-card-dark text-slate-700 dark:text-slate-200 hover:bg-slate-200/20 dark:hover:bg-white/5 transition-all duration-300"
+            className="flex-1 flex items-center justify-center gap-2 px-4 py-2 text-xs font-semibold rounded-lg border border-slate-200 bg-white text-slate-700 hover:bg-slate-100 transition-all duration-300"
           >
             <FaGithub className="w-4 h-4" />
             <span>GitHub</span>
@@ -96,7 +96,7 @@ function ProjectCard({ project }) {
             href={project.demo}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 flex items-center justify-center gap-2 px-4 py-2 text-xs font-semibold rounded-lg bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white shadow-md hover:shadow-neon-blue transition-all duration-300"
+            className="flex-1 flex items-center justify-center gap-2 px-4 py-2 text-xs font-semibold rounded-lg bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white shadow-md transition-all duration-300"
           >
             <FaExternalLinkAlt className="w-3.5 h-3.5" />
             <span>Live Demo</span>
@@ -130,7 +130,7 @@ export default function Projects() {
     {
       id: 3,
       title: 'Portfolio Website',
-      description: 'A premium developer portfolio featuring custom React physics cursor interactions, drifting backgrounds, glassmorphism layouts, and dark/light modes.',
+      description: 'A premium developer portfolio featuring smooth particle background animations, clean glassmorphism layouts, and a high-readability light theme.',
       tags: ['React', 'Vite', 'Tailwind CSS', 'Framer Motion'],
       image: '/images/project_placeholder.svg',
       github: 'https://github.com/adityapnaik',
@@ -173,10 +173,10 @@ export default function Projects() {
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-800 dark:text-white mb-2">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-800 mb-2">
             My <span className="text-gradient">Projects</span>
           </h2>
-          <div className="w-16 h-1 bg-gradient-to-r from-cyan-400 to-indigo-500 mx-auto rounded-full" />
+          <div className="w-16 h-1 bg-gradient-to-r from-cyan-500 to-indigo-600 mx-auto rounded-full" />
         </div>
 
         {/* Project Grid */}
